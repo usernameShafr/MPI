@@ -27,16 +27,16 @@ public class DataInit implements ApplicationRunner {
         if (count == 0) {
             Person p1 = new Person();
  
-            p1.setCasta("Rab");
+            p1.setCasta("ALFA");
  
             p1.setCount("2");
             p1.setStatus("service 1");
             //
             Person p2 = new Person();
  
-            p2.setCasta("Not a Rab");
+            p2.setCasta("BETA");
        
-            p2.setCount("4");
+            p2.setCount("56");
             p2.setStatus("treatment");
  
             personDAO.save(p1);

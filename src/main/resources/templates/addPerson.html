@@ -17,7 +17,11 @@
       <form th:action="@{/addPerson}"
          th:object="${personForm}" method="POST">
          Casta:
-         <input type="text" th:field="*{casta}" />    
+         <!--<input type="text" th:field="*{casta}" /> -->
+         <select th:field="*{casta}">
+    		<option th:value="ALFA" th:text="'High caste'"></option>
+    		<option th:value="BETA" th:text="'Other casta'"></option>
+		 </select>    
          <br/>
          Count:
          <input type="text" th:field="*{count}" />     

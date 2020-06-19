@@ -8,16 +8,22 @@
    <body>
       <h1>Person List</h1>
       <a href="addPerson">Add Person</a>
+      <a href="index">   Menu</a>
+      
       <br/><br/>
       <div>
          <table border="1">
             <tr>
-               <th>First Name</th>
-               <th>Last Name</th>
+               <th>Casta</th>
+               <th>Count</th>
+               <th>Status</th>
+               
             </tr>
             <tr th:each ="person : ${persons}">
                <td th:utext="${person.casta}">...</td>
                <td th:utext="${person.count}">...</td>
+               <td th:utext="${person.status}">...</td>
+               
             </tr>
          </table>
       </div>

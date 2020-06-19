@@ -61,7 +61,7 @@ public class MainController {
         String count = personForm.getCount();
  
         if (casta != null && casta.length() > 0 //
-                 ) {
+        		&& count != null  ) {
         	Person p4 = new Person();
         	 
             p4.setCasta(casta);
@@ -77,5 +77,13 @@ public class MainController {
  
         model.addAttribute("errorMessage", errorMessage);
         return "addPerson";
+    }
+    
+    @RequestMapping(value = { "/personList" }, method = RequestMethod.GET)
+    public String personList(Model model) {
+    	Iterable<Person> all  = personDAO.findAll();
+        model.addAttribute("persons", all);
+ 
+        return "personList";
     }
 }
