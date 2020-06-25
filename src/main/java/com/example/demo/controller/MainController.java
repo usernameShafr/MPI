@@ -61,7 +61,7 @@ public class MainController {
         String count = personForm.getCount();
  
         if (casta != null && casta.length() > 0 //
-        		&& count != null  ) {
+        		&& count != null && count.length() > 0) {
         	Person p4 = new Person();
         	 
             p4.setCasta(casta);

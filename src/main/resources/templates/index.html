@@ -1,18 +1,40 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
    <head>
-      <meta charset="UTF-8" />
       <title>Welcome</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+      <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
    </head>
    <body>
-      <h1>Welcome</h1>
-      <h2 th:utext="${message}">..!..</h2>
-       
-           
-      <a th:href="@{/addPerson}">Person add</a>
-      <a th:href="@{/personList}">List Person</a>
-       
+      <div class="container">
+         <div class="row">
+            <div class="col"></div>
+            <div class="col-4">
+               <h1>Welcome</h1>
+            </div>
+            <div class="col"></div>
+         </div>
+         <div class="row">
+            <div class="col"></div>
+            <div class="col-4">
+               <h2 th:utext="${message}">..!..</h2>
+            </div>
+            <div class="col"></div>
+         </div>
+         <div class="row">
+            <div class="col"></div>
+            <div class="col-2">
+               <a th:href="@{/addPerson}">Person add</a>
+            </div>
+            <div class="col-2">
+               <a th:href="@{/personList}">List Person</a>
+            </div>
+            <div class="col"></div>
+         </div>
+      </div>
    </body>
     
 </html>
