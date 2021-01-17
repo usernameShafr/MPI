@@ -9,8 +9,6 @@ import java.util.Objects;
 public class HatcheryApplication {
 
     public static void main(String[] args) {
-        Objects.equals(null, null);
-
         SpringApplication.run(HatcheryApplication.class, args);
     }
 
