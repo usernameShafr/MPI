@@ -39,6 +39,6 @@ public class OrderX {
     @Enumerated(EnumType.STRING)
     private Caste caste;
 
-    @OneToOne(mappedBy = "orderX")
+    @OneToOne(mappedBy = "order")
     private Task task;
 }
