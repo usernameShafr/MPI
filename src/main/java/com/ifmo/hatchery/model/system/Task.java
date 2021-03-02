@@ -24,7 +24,7 @@ public class Task {
 
     @OneToOne
     @JoinColumn(name = "order_id")
-    private OrderX orderX;
+    private OrderX order;
 
     @OneToOne
     @JoinColumn(name = "male_material_id")
