@@ -18,7 +18,7 @@ import java.util.Collection;
 
 @Entity
 @Data
-public class Order {
+public class OrderX {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
