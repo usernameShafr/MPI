@@ -18,7 +18,7 @@
                     <!-- FERTILIZATION -->
                     <div class="form-group" th:if="${taskForProcess.stage == T(com.ifmo.hatchery.model.system.Stage).FERTILIZATION}">
                         <label for="maleBioMaterial">Male material</label>
-                        <select class="form-control" id="maleBioMaterial" name="maleBioMaterialId">
+                        <select class="form-control custom-select" id="maleBioMaterial" name="maleBioMaterialId">
                             <option th:each="bioMaterial : ${maleBioMaterial}"
                                     th:value="${bioMaterial.id}"
                                     th:text="${bioMaterial.getFormSting()}"></option><!-- : ${bioMaterial.type} : ${bioMaterial.donor.name} -->
@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group" th:if="${taskForProcess.stage == T(com.ifmo.hatchery.model.system.Stage).FERTILIZATION}">
                         <label for="femaleBioMaterial">Female material</label>
-                        <select class="form-control" id="femaleBioMaterial" name="femaleBioMaterialId">
+                        <select class="form-control custom-select" id="femaleBioMaterial" name="femaleBioMaterialId">
                             <option th:each="bioMaterial : ${femaleBioMaterial}"
                                     th:value="${bioMaterial.id}"
                                     th:text="${bioMaterial.getFormSting()}"></option> <!-- : ${bioMaterial.type} : ${bioMaterial.donor.name} -->
@@ -35,12 +35,12 @@
                     <!-- OR -->
                     <div class="row" th:if="${T(com.ifmo.hatchery.controller.TaskController).isStageAfter(taskForProcess.stage, T(com.ifmo.hatchery.model.system.Stage).FERTILIZATION)}">
                         <label for="caste">Male material</label>
-                        <input type="text" th:value="${taskForProcess.biomaterialMale.getFormSting()}" readonly> <!--  : ${taskForProcess.biomaterialMale.type} : ${taskForProcess.biomaterialMale.donor.name} -->
+                        <input type="text" class="form-control" th:value="${taskForProcess.biomaterialMale.getFormSting()}" readonly> <!--  : ${taskForProcess.biomaterialMale.type} : ${taskForProcess.biomaterialMale.donor.name} -->
                     </div>
 
                     <div class="row" th:if="${T(com.ifmo.hatchery.controller.TaskController).isStageAfter(taskForProcess.stage, T(com.ifmo.hatchery.model.system.Stage).FERTILIZATION)}">
                         <label for="caste">Male material</label>
-                        <input type="text" th:value="${taskForProcess.biomaterialFemale.getFormSting()}" readonly> <!--  : ${taskForProcess.biomaterialMale.type} : ${taskForProcess.biomaterialMale.donor.name} -->
+                        <input type="text" class="form-control" th:value="${taskForProcess.biomaterialFemale.getFormSting()}" readonly> <!--  : ${taskForProcess.biomaterialMale.type} : ${taskForProcess.biomaterialMale.donor.name} -->
                     </div>
 
 
@@ -48,7 +48,7 @@
                     <!-- CHOOSE_CASTE -->
                     <div class="form-group" th:if="${taskForProcess.stage == T(com.ifmo.hatchery.model.system.Stage).CHOOSE_CASTE}">
                         <label for="caste">Caste</label>
-                        <select class="form-control" id="caste" name="caste">
+                        <select class="form-control custom-select" id="caste" name="caste">
                             <option th:each="casteOpt : ${T(com.ifmo.hatchery.model.system.Caste).values()}"
                                     th:value="${casteOpt}"
                                     th:text="${casteOpt}"
@@ -58,7 +58,7 @@
                     <!-- OR -->
                     <div class="row" th:if="${T(com.ifmo.hatchery.controller.TaskController).isStageAfter(taskForProcess.stage, T(com.ifmo.hatchery.model.system.Stage).CHOOSE_CASTE)}">
                         <label for="caste">Caste</label>
-                        <input type="text" th:value="${taskForProcess.caste}" readonly>
+                        <input type="text" class="form-control" th:value="${taskForProcess.caste}" readonly>
                     </div>
 
 
@@ -66,12 +66,12 @@
                     <!-- BOKANOVSKIY -->
                     <div class="row" th:if="${taskForProcess.stage == T(com.ifmo.hatchery.model.system.Stage).BOKANOVSKIY}">
                         <label for="amount">Amount of humans</label>
-                        <input type="text" id="amount" name="amount" th:placeholder="${taskForProcess.order.caste.getMinAmount() + ' - ' + taskForProcess.order.caste.getMaxAmount()}" >
+                        <input type="text" class="form-control" id="amount" name="amount" th:placeholder="${taskForProcess.order.caste.getMinAmount() + ' - ' + taskForProcess.order.caste.getMaxAmount()}" >
                     </div>
                     <!-- OR -->
                     <div class="row" th:if="${T(com.ifmo.hatchery.controller.TaskController).isStageAfter(taskForProcess.stage, T(com.ifmo.hatchery.model.system.Stage).BOKANOVSKIY)}">
                         <label for="caste">Amount of humansl</label>
-                        <input type="text" th:value="${taskForProcess.amount}" readonly>
+                        <input type="text" class="form-control" th:value="${taskForProcess.amount}" readonly>
                     </div>
 
 
@@ -97,6 +97,7 @@
                     <input type="submit" value="Proceed" class="btn btn-outline-success"/>
                 </form>
             </div>
+            <div class="col"></div>
         </div>
     </div>
 </body>
