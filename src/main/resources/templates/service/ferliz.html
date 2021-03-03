@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ferliz Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+</head>
+<body>
+<div class="col-6">
+    <h1>My orders</h1>
+    <form th:action="@{/service/ferliz/update}" method="POST">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Caste</th>
+            <th scope="col">Task Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${allTasks.empty}">
+            <td colspan="4"> No Orders Available </td>
+        </tr>
+        <tr th:each="task : ${allTasks}">
+            <th scope="row"> <input type="checkbox" name="updateStage" th:value="${task.id}"/></th>
+            <td><span th:text="${task.order.caste}"></span></td>
+            <td><span th:text="${task.stage}"></span></td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="submit" value="Update"/>
+
+</form>
+</div>
+
+<!--<form th:action="@{service/ferliz/update}" method="POST">
+    </table>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Caste</th>
+        <th scope="col">Task Status</th>
+    </tr>
+<th:block th:each="task : ${allTasks}">
+    <tr>
+        <td><input type="checkbox" name="ferliz1" th:text="${task.id}"/></td>
+        <td><span th:text="${task.order.caste}"></span></td>
+        <td><span th:text="${task.stage}"></span></td>
+    </tr>
+</th:block>
+    </table>
+    <input type="submit" value="Create"/>
+
+</form>-->
+</body>
+</html>
