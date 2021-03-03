@@ -113,6 +113,8 @@
                     </tr>
                     </tbody>
                 </table>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}" style="color:red;font-style:italic;"></div>
+                <div th:if="${infoMessage}" th:utext="${infoMessage}"></div>
             </div>
             <div class="col"></div>
         </div>

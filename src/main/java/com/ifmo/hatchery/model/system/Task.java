@@ -1,8 +1,10 @@
 package com.ifmo.hatchery.model.system;
 
 
+import com.ifmo.hatchery.model.auth.User;
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -51,7 +53,10 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Stage stage;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "task_lock_id")
-    private TaskLock taskLock;
+    @Enumerated(EnumType.STRING)
+    private TaskLockStatus lockStatus;
+
+    @OneToOne(cascade = CascadeType.DETACH, orphanRemoval = true)
+    @JoinColumn(name = "handler_id")
+    private User lockUser;
 }

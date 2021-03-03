@@ -69,8 +69,9 @@ public class TaskController {
         User user = userRepository.findByUsername(authentication.getName());
         Optional<Task> task = getTaskWithLock(stage, user);
         if(task.isPresent()){
-            System.err.println(task.get().getTaskLock().getId() + ": " + task.get().getStage());
+            System.err.println(task.get().getLockStatus() + ": " + task.get().getStage());
         } else {
+            model.addAttribute("errorMessage", String.format("Task for %s isn't found in queue", stage));
             System.err.println("Task not found");
             return "redirect:/dashboard";
         }
@@ -80,8 +81,8 @@ public class TaskController {
 
     @RequestMapping(value = { "/processTask" }, method = RequestMethod.POST)
     public String processTask(Model model,
-                              @RequestParam(value = "taskId", required = true) Long taskId) {
-        Task task = taskRepository.getOne(taskId);
+                              @RequestParam(value = "taskId", required = true) String taskId) {
+        Task task = taskRepository.getOne(Long.valueOf(taskId));
         /*switch (task.getStage()) {
             case FERTILIZATION:
 
@@ -92,6 +93,7 @@ public class TaskController {
         taskRepository.save(task);
         unlockTask(task);
 
+        model.addAttribute("infoMessage", String.format("Task added"));
         return "redirect:/dashboard";
     }
 
@@ -105,31 +107,40 @@ public class TaskController {
         taskLock.setHandler(user);
         taskLock.setLockStatus(TaskLockStatus.LOCKED);
         for(Task task : taskList) {
-            taskLock = taskLockRepository.save(taskLock);
-            task.setTaskLock(taskLock);
+            task.setLockStatus(TaskLockStatus.LOCKED);
+            task.setLockUser(user);
             return Optional.of(taskRepository.save(task));
+            /*taskLock = taskLockRepository.save(taskLock);
+            task.setTaskLock(taskLock);
+            return Optional.of(taskRepository.save(task));*/
         }
         return Optional.empty();
     }
 
     @Transactional
     private void lockFailed(Task task) {
-        TaskLock taskLock = task.getTaskLock();
+        task.setLockStatus(TaskLockStatus.FAILED);
+        /*TaskLock taskLock = task.getTaskLock();
         if(taskLock != null) {
             taskLock.setLockStatus(TaskLockStatus.FAILED);
             taskLockRepository.save(taskLock);
-        }
+        }*/
     }
 
     @Transactional
     private void unlockTask(Task task) {
-        TaskLock taskLock = task.getTaskLock();
+        task.setLockStatus(null);
+        taskRepository.save(task);
+        /*TaskLock taskLock = task.getTaskLock();
         if(taskLock != null) {
+            //task.setTaskLock(null);
+            //taskRepository.save(task);
             taskLockRepository.delete(taskLock);
+
             //TODO: remove it
             Task updatedTask = taskRepository.getOne(task.getId());
             System.err.println("Lock(" + updatedTask.getId() + "): " + updatedTask.getTaskLock());
-        }
+        }*/
     }
 
     private Task nextStage(Task task) {

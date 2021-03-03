@@ -32,33 +32,33 @@ public class DashboardController {
 
         //FERTILIZATION STAGE
         List<Task> stageTasks = filterTaskByStages(allTasks, Stage.FERTILIZATION);
-        paramsMap.put("FERTILIZATION.QUEUE", stageTasks.stream().filter(task -> task.getTaskLock() == null).count());
-        paramsMap.put("FERTILIZATION.IN_PROGRESS", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.LOCKED).count());
-        //failedCount = fertilizationTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.FAILED).count();
-        paramsMap.put("FERTILIZATION.FAILED", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.FAILED).count());
+        paramsMap.put("FERTILIZATION.QUEUE", stageTasks.stream().filter(task -> task.getLockStatus() == null).count());
+        paramsMap.put("FERTILIZATION.IN_PROGRESS", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.LOCKED).count());
+        //failedCount = fertilizationTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.FAILED).count();
+        paramsMap.put("FERTILIZATION.FAILED", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.FAILED).count());
         paramsMap.put("FERTILIZATION.COMPLETED", filterTaskByStages(allTasks, Stage.CHOOSE_CASTE, Stage.BOKANOVSKIY, Stage.ADD_SKILLS, Stage.FINISH).size());
         //paramsMap.put("FERTILIZATION.STATUS", failedCount != 0L);
         //paramsMap.put("FERTILIZATION.GET_TASK", allTasks.size() - fertilizationTasks.size());
 
         //CHOOSE_CASTE STAGE
         stageTasks = filterTaskByStages(allTasks, Stage.CHOOSE_CASTE);
-        paramsMap.put("CHOOSE_CASTE.QUEUE", stageTasks.stream().filter(task -> task.getTaskLock() == null).count());
-        paramsMap.put("CHOOSE_CASTE.IN_PROGRESS", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.LOCKED).count());
-        paramsMap.put("CHOOSE_CASTE.FAILED", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.FAILED).count());
+        paramsMap.put("CHOOSE_CASTE.QUEUE", stageTasks.stream().filter(task -> task.getLockStatus() == null).count());
+        paramsMap.put("CHOOSE_CASTE.IN_PROGRESS", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.LOCKED).count());
+        paramsMap.put("CHOOSE_CASTE.FAILED", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.FAILED).count());
         paramsMap.put("CHOOSE_CASTE.COMPLETED", filterTaskByStages(allTasks, Stage.BOKANOVSKIY, Stage.ADD_SKILLS, Stage.FINISH).size());
 
         //BOKANOVSKIY STAGE
         stageTasks = filterTaskByStages(allTasks, Stage.BOKANOVSKIY);
-        paramsMap.put("BOKANOVSKIY.QUEUE", stageTasks.stream().filter(task -> task.getTaskLock() == null).count());
-        paramsMap.put("BOKANOVSKIY.IN_PROGRESS", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.LOCKED).count());
-        paramsMap.put("BOKANOVSKIY.FAILED", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.FAILED).count());
+        paramsMap.put("BOKANOVSKIY.QUEUE", stageTasks.stream().filter(task -> task.getLockStatus() == null).count());
+        paramsMap.put("BOKANOVSKIY.IN_PROGRESS", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.LOCKED).count());
+        paramsMap.put("BOKANOVSKIY.FAILED", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.FAILED).count());
         paramsMap.put("BOKANOVSKIY.COMPLETED", filterTaskByStages(allTasks, Stage.ADD_SKILLS, Stage.FINISH).size());
 
         //ADD_SKILLS STAGE
         stageTasks = filterTaskByStages(allTasks, Stage.ADD_SKILLS);
-        paramsMap.put("ADD_SKILLS.QUEUE", stageTasks.stream().filter(task -> task.getTaskLock() == null).count());
-        paramsMap.put("ADD_SKILLS.IN_PROGRESS", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.LOCKED).count());
-        paramsMap.put("ADD_SKILLS.FAILED", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.FAILED).count());
+        paramsMap.put("ADD_SKILLS.QUEUE", stageTasks.stream().filter(task -> task.getLockStatus() == null).count());
+        paramsMap.put("ADD_SKILLS.IN_PROGRESS", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.LOCKED).count());
+        paramsMap.put("ADD_SKILLS.FAILED", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.FAILED).count());
         paramsMap.put("ADD_SKILLS.COMPLETED", filterTaskByStages(allTasks, Stage.FINISH).size());
 
         //FINISH STAGE

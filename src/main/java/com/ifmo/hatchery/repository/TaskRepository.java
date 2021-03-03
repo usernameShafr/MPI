@@ -11,6 +11,6 @@ import java.util.List;
 public interface TaskRepository<T extends Task, ID extends Long> extends JpaRepository<Task, Long> {
     List<Task> findAllByStage(Stage stage);
 
-    @Query("SELECT t FROM Task t WHERE t.stage = :stage and t.taskLock IS NULL")
+    @Query("SELECT t FROM Task t WHERE t.stage = :stage and t.lockStatus IS NULL")
     List<Task> findAllByStageWithoutLock(@Param("stage") Stage stage);
 }

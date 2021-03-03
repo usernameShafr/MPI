@@ -14,29 +14,29 @@
             <div class="col-4">
                 <form th:action="@{/task/processTask}"
                       method="POST">
-                    <input type="text" hidden name="taskId" value="${taskForProcess.id}">
+                    <input type="text" hidden name="taskId" th:value="${taskForProcess.id}">
                     <!-- FERTILIZATION -->
                     <div class="form-group" th:if="${taskForProcess.stage == T(com.ifmo.hatchery.model.system.Stage).FERTILIZATION}">
                         <label for="maleBioMaterial">Male material</label>
                         <select class="form-control" id="maleBioMaterial" name="maleBioMaterialId">
-                            <option th:each="casteOpt : ${maleBioMaterial}"
-                                    th:value="${maleBioMaterial.id}"
-                                    th:text="${maleBioMaterial.id} : ${maleBioMaterial.type} : ${maleBioMaterial.donor.name}"></option>
+                            <option th:each="bioMaterial : ${maleBioMaterial}"
+                                    th:value="${bioMaterial.id}"
+                                    th:text="${bioMaterial.id}"></option><!-- : ${bioMaterial.type} : ${bioMaterial.donor.name} -->
                         </select>
                     </div>
                     <div class="form-group" th:if="${taskForProcess.stage == T(com.ifmo.hatchery.model.system.Stage).FERTILIZATION}">
                         <label for="femaleBioMaterial">Female material</label>
                         <select class="form-control" id="femaleBioMaterial" name="femaleBioMaterialId">
-                            <option th:each="casteOpt : ${femaleBioMaterial}"
-                                    th:value="${femaleBioMaterial.id}"
-                                    th:text="${femaleBioMaterial.id} : ${femaleBioMaterial.type} : ${femaleBioMaterial.donor.name}"></option>
+                            <option th:each="bioMaterial : ${femaleBioMaterial}"
+                                    th:value="${bioMaterial.id}"
+                                    th:text="${bioMaterial.id}"></option> <!-- : ${bioMaterial.type} : ${bioMaterial.donor.name} -->
                         </select>
                     </div>
 
                     <!-- OR -->
                     <div class="row" th:if="${T(com.ifmo.hatchery.controller.TaskController).isStageAfter(taskForProcess.stage, T(com.ifmo.hatchery.model.system.Stage).FERTILIZATION)}">
                         <label for="caste">Male material</label>
-                        <input type="text" placeholder="${taskForProcess.biomaterialMale.id} : ${taskForProcess.biomaterialMale.type} : ${taskForProcess.biomaterialMale.donor.name}" readonly>
+                        <input type="text" placeholder="${taskForProcess.biomaterialMale.id}" readonly> <!--  : ${taskForProcess.biomaterialMale.type} : ${taskForProcess.biomaterialMale.donor.name} -->
                     </div>
 
                     <!-- CHOOSE_CASTE -->
