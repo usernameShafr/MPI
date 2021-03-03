@@ -30,6 +30,7 @@ import java.util.Optional;
 @RequestMapping("task")
 public class TaskController {
     private static final String REDIRECT_DASHBOARD = "redirect:/dashboard";
+    private static final String ERROR_ATTRIBUTE = "errorMessage";
     @Autowired
     private TaskRepository<Task, Long> taskRepository;
 
@@ -70,7 +71,7 @@ public class TaskController {
         if(task.isPresent()){
             System.err.println(task.get().getLockStatus() + ": " + task.get().getStage());
         } else {
-            model.addAttribute("errorMessage", String.format("Task for %s isn't found in queue", stage));
+            model.addAttribute(ERROR_ATTRIBUTE, String.format("Task for %s isn't found in queue", stage));
             System.err.println("Task not found");
             return REDIRECT_DASHBOARD;
         }
@@ -98,19 +99,58 @@ public class TaskController {
                 caste,
                 skillIDs,
                 amount)) {
-
-            return returnToDashboardWithParams(REDIRECT_DASHBOARD, model.getAttribute("errorMessage") + "", "");
+            lockFailed(task);
+            return returnToDashboardWithParams(REDIRECT_DASHBOARD, model.getAttribute(ERROR_ATTRIBUTE) + "", "");
         }
-
-        /*switch (task.getStage()) {
+        boolean processSucceed = true;
+        switch (task.getStage()) {
             case FERTILIZATION:
-
-        }*/
-
-        task = nextStage(task);
+                processSucceed = processFertilization(model, task, maleBioMaterialId, femaleBioMaterialId);
+                break;
+            case CHOOSE_CASTE:
+                processSucceed = false;
+                break;
+            case BOKANOVSKIY:
+                processSucceed = false;
+                break;
+            case ADD_SKILLS:
+                processSucceed = false;
+                break;
+        }
+        if(!processSucceed) {
+            lockFailed(task);
+            return returnToDashboardWithParams(REDIRECT_DASHBOARD, "" + model.getAttribute(ERROR_ATTRIBUTE), "");
+        }
+        nextStage(task);
         taskRepository.save(task);
         unlockTask(task);
         return returnToDashboardWithParams(REDIRECT_DASHBOARD, "", String.format("Task %s processed and moved to %s", task.getId(), task.getStage()));
+    }
+
+    @Transactional
+    private boolean processFertilization(Model model, Task task, Long maleBioMaterialId, Long femaleBioMaterialId) {
+        String message = "";
+        Optional<Biomaterial> maleBio = biomaterialRepository.findById(maleBioMaterialId);
+        Optional<Biomaterial> femaleBio = biomaterialRepository.findById(femaleBioMaterialId);
+        if(!maleBio.isPresent()) {
+            message += "Male bio material isn't found by id " + maleBioMaterialId;
+        } else if (maleBio.get().getBioState() != BioState.NOT_USE) {
+            message += "Selected male bio material already used " + maleBio.get().getFormSting();
+        }
+        if(!femaleBio.isPresent()) {
+            message += "Female bio material isn't found by id " + femaleBioMaterialId;
+        } else if(femaleBio.get().getBioState() != BioState.NOT_USE) {
+            message += "Selected female bio material already used " + femaleBio.get().getFormSting();
+        }
+        if(!message.isEmpty()) {
+            model.addAttribute(ERROR_ATTRIBUTE, message);
+            return false;
+        }
+        maleBio.get().setBioState(BioState.USE);
+        femaleBio.get().setBioState(BioState.USE);
+        task.setBiomaterialMale(biomaterialRepository.save(maleBio.get()));
+        task.setBiomaterialFemale(biomaterialRepository.save(femaleBio.get()));
+        return true;
     }
 
     @SneakyThrows
@@ -166,7 +206,7 @@ public class TaskController {
                 break;
         }
         if(!message.isEmpty()) {
-            model.addAttribute("errorMessage", String.format("%s: %s", task.getStage(), message));
+            model.addAttribute(ERROR_ATTRIBUTE, String.format("%s: %s", task.getStage(), message));
         }
         return validated;
     }
@@ -200,21 +240,21 @@ public class TaskController {
         taskRepository.save(task);
     }
 
-    private Task nextStage(Task task) {
+    private void nextStage(Task task) {
         switch (task.getStage()) {
             case FERTILIZATION:
                 task.setStage(Stage.CHOOSE_CASTE);
-                return task;
+                return;
             case CHOOSE_CASTE:
                 task.setStage(Stage.BOKANOVSKIY);
-                return task;
+                return;
             case BOKANOVSKIY:
                 task.setStage(Stage.ADD_SKILLS);
-                return task;
+                return;
             case ADD_SKILLS:
             case FINISH:
                 task.setStage(Stage.FINISH);
-                return task;
+                return;
         }
         throw new IllegalStateException("Unexpected State");
     }

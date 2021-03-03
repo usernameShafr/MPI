@@ -39,6 +39,11 @@
                         <input type="text" th:placeholder="${taskForProcess.biomaterialMale.getFormSting()}" readonly> <!--  : ${taskForProcess.biomaterialMale.type} : ${taskForProcess.biomaterialMale.donor.name} -->
                     </div>
 
+                    <div class="row" th:if="${T(com.ifmo.hatchery.controller.TaskController).isStageAfter(taskForProcess.stage, T(com.ifmo.hatchery.model.system.Stage).FERTILIZATION)}">
+                        <label for="caste">Male material</label>
+                        <input type="text" th:placeholder="${taskForProcess.biomaterialFemale.getFormSting()}" readonly> <!--  : ${taskForProcess.biomaterialMale.type} : ${taskForProcess.biomaterialMale.donor.name} -->
+                    </div>
+
                     <!-- CHOOSE_CASTE -->
                     <div class="form-group" th:if="${taskForProcess.stage == T(com.ifmo.hatchery.model.system.Stage).CHOOSE_CASTE}">
                         <label for="caste">Caste</label>
