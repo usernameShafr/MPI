@@ -41,4 +41,10 @@ public class OrderX {
 
     @OneToOne(mappedBy = "order")
     private Task task;
+
+    @Override
+    public String toString() {
+        String taskString = (task == null) ? "" : String.format("{Task[id=%s, stage=%s]}", this.task.getId(), task.getStage());
+        return String.format("Order[id=%s, caste=%s, customer=%s, task=%s]", this.id, this.caste, this.customer, taskString);
+    }
 }

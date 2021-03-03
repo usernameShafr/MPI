@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hatchery: Order</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-6">
+            <h1>Create order</h1>
+            <form th:action="@{order/createOrder}"
+                  method="POST"><!--th:object="${personForm}" -->
+                <div class="form-group">
+                    <label for="caste">Caste</label>
+                    <select class="form-control" id="caste" name="caste">
+                        <option th:each="casteOpt : ${T(com.ifmo.hatchery.model.system.Caste).values()}"
+                                th:value="${casteOpt}" th:text="${casteOpt}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Skills</label>
+                    <th:block th:each="skill : ${availableSkills}">
+                        <div class="row">
+                            <input type="checkbox" name="skills" th:value="${skill.id}"/>
+                            <label th:text="${skill.name}"></label>
+                        </div>
+                    </th:block>
+                    <!--<input type="text" class="form-control" id="exampleCount"placeholder="Enter count of humans"  th:field="*{count}">-->
+                    <!--<small id="emailHelp" class="form-text text-muted">Number of humans in order</small>-->
+                </div>
+                <input type="submit" value="Create" class="btn btn-outline-success"/>
+            </form>
+            <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                 style="color:red;font-style:italic;">
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+    <div class="row"><div class="col"></div></div>
+</div>
+</body>
+</html>
