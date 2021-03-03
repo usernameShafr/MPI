@@ -70,7 +70,11 @@ public class TaskController {
 
     @RequestMapping(value = {"/add_skills" }, method = RequestMethod.GET)
     public String getAddSkillsTask(Model model, Authentication authentication) {
-        return commonGetProcessing(model, authentication, Stage.ADD_SKILLS);
+        String answer =  commonGetProcessing(model, authentication, Stage.ADD_SKILLS);
+        if(answer.equals("/task")) {
+            model.addAttribute("availableSkills", skillRepository.findAll());
+        }
+        return answer;
     }
 
     private String commonGetProcessing(Model model, Authentication authentication, Stage stage) {
