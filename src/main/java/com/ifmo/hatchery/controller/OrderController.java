@@ -83,7 +83,7 @@ public class OrderController {
     private OrderX createTaskAndOrder(OrderX order) {
         order = orderRepository.save(order);
         Task task = new Task();
-        task.setStage(Stage.START);
+        task.setStage(Stage.FERTILIZATION);
         task.setOrder(order);
         task = taskRepository.save(task);
         order.setTask(task);
