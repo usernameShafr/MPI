@@ -14,6 +14,14 @@
         <div class="col"></div>
         <div class="col-8">
             <h1><span th:text="${stage1}" ></span> SERVICE</h1>
+
+<!--            <form th:action="@{/dashboard}" method="get">-->
+<!--                <input type="submit" value="Вернуться в Dashboard"/></form>-->
+            <form th:action="@{/restartService/restart}" method="post">
+                <input type="hidden" name="stage2" th:value="${stage1}"/>
+                <input type="submit" value="restart service"/>
+            </form>
+
             <table class="table table-hover table-bordered">
                 <thead>
                 <tr>
@@ -34,9 +42,10 @@
                 </tbody>
             </table>
         </div>
-
         <div class="col"></div>
+
     </div>
+
 </div>
 </body>
 </html>
