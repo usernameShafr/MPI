@@ -177,29 +177,29 @@ public class TaskController {
                 task.getId(), maleBioMaterialId, femaleBioMaterialId, caste, skillIDs, amount));
         switch (task.getStage()) {
             case FERTILIZATION:
-                if(!(maleBioMaterialId == null || maleBioMaterialId > 0L)) {
+                if(maleBioMaterialId == null || maleBioMaterialId <= 0L) {
                     message += "'maleBioMaterialId' ins't exist in request\n";
                     validated = false;
                 }
-                if(!(femaleBioMaterialId == null || femaleBioMaterialId > 0L)) {
+                if(femaleBioMaterialId == null || femaleBioMaterialId <= 0L) {
                     message += "'femaleBioMaterialId' ins't exist in request\n";
                     validated = false;
                 }
                 break;
             case CHOOSE_CASTE:
-                if(!(caste == null)) {
+                if(caste == null) {
                     message += "'caste' ins't exist in request\n";
                     validated = false;
                 }
                 break;
             case BOKANOVSKIY:
-                if(!(amount == null || amount > 0L)) {
+                if(amount == null || amount <= 0L) {
                     message += "'amount' ins't exist in request\n";
                     validated = false;
                 }
                 break;
             case ADD_SKILLS:
-                if(!(skillIDs == null || skillIDs.isEmpty())) {
+                if(skillIDs == null || skillIDs.isEmpty()) {
                     message += "'skillIDs' ins't exist in request\n";
                     validated = false;
                 }
