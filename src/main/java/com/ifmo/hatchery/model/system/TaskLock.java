@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,6 +19,8 @@ public class TaskLock {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "handler_id")
     private User handler;
 
     @Enumerated(EnumType.STRING)

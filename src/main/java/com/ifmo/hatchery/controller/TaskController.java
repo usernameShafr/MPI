@@ -105,9 +105,9 @@ public class TaskController {
         taskLock.setHandler(user);
         taskLock.setLockStatus(TaskLockStatus.LOCKED);
         for(Task task : taskList) {
-            taskLock = taskLockRepository.saveAndFlush(taskLock);
+            taskLock = taskLockRepository.save(taskLock);
             task.setTaskLock(taskLock);
-            return Optional.of(taskRepository.saveAndFlush(task));
+            return Optional.of(taskRepository.save(task));
         }
         return Optional.empty();
     }
