@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -79,6 +81,15 @@ public class RestartServiceController {
         model.addAttribute("stage1", stage);
 
         return "/restartService";
+    }
+    @PostMapping("/restart" )
+    public String restartService(Model model, @RequestParam() Stage stage2) {
+        System.err.println(stage2.toString().toLowerCase());
+
+        List<Task> stageTasks = taskRepository.findAllByStage(stage2);
+
+        return "redirect:/restartService/"+stage2.toString().toLowerCase();
+
     }
 
     public static boolean hasFailures(Object status){
