@@ -1,6 +1,6 @@
 package com.ifmo.hatchery.controller;
 
-import com.ifmo.hatchery.Service.UserService;
+import com.ifmo.hatchery.service.UserService;
 import com.ifmo.hatchery.model.auth.User;
 import com.ifmo.hatchery.model.system.Caste;
 import com.ifmo.hatchery.model.system.OrderX;

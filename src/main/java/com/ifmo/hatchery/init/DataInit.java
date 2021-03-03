@@ -17,13 +17,8 @@ import java.util.Collections;
 
 @Component
 public class DataInit implements ApplicationRunner {
-
-
-
-
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private SkillRepository<Skill, Long> skillRepository;

@@ -1,4 +1,4 @@
-package com.ifmo.hatchery.Service;
+package com.ifmo.hatchery.service;
 
 import com.ifmo.hatchery.model.auth.User;
 import com.ifmo.hatchery.model.auth.Role;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,11 +24,11 @@ public class UserService implements UserDetailsService {
     @PersistenceContext
     private EntityManager em;
     @Autowired
-    UserRepository<User, Long> userRepository;
+    private UserRepository<User, Long> userRepository;
     @Autowired
-    RoleRepository <Role, Long>roleRepository;
+    private RoleRepository <Role, Long> roleRepository;
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Override
