@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Donor LK</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+<h1 th:inline="text">Donor LK  [[${#httpServletRequest.remoteUser}]]!</h1>
+<form th:action="@{donor/giveBio}" method="POST">
+    <div class="form-group">
+        <label for="biomaterial">Biomaterial</label>
+        <select class="form-control" id="biomaterial" name="biomaterial">
+            <option th:each="bioOPt : ${T(com.ifmo.hatchery.model.system.BiomaterialType).values()}"
+                    th:value="${bioOPt}" th:text="${bioOPt}"></option>
+        </select>
+    </div>
+
+    <input type="submit" value="Give" />
+</form>
+</body>
+</html>

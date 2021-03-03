@@ -69,6 +69,17 @@ public class DataInit implements ApplicationRunner {
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
 
+            role = new Role();
+            role.setName("ROLE_DONOR");
+            roleRepository.save(role);
+
+            user = new User();
+            user.setEmail("email11@gmail.com");
+            user.setUsername("usernameDonor");
+            user.setLastName("lastnameDonor");
+            user.setPassword(bCryptPasswordEncoder.encode("password"));
+            user.setRoles(Collections.singleton(role));
+            userRepository.save(user);
         }
 
     }

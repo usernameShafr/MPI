@@ -22,7 +22,42 @@ public class Biomaterial {
     @Enumerated(EnumType.STRING)
     private BiomaterialType type;
 
+    @Enumerated(EnumType.STRING)
+    private BioState bioState;
+
     @ManyToOne
     @JoinColumn(name = "donor_id")
     private User donor;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BiomaterialType getType() {
+        return type;
+    }
+
+    public void setType(BiomaterialType type) {
+        this.type = type;
+    }
+
+    public BioState getBioState() {
+        return bioState;
+    }
+
+    public void setBioState(BioState bioState) {
+        this.bioState = bioState;
+    }
+
+    public User getDonor() {
+        return donor;
+    }
+
+    public void setDonor(User donor) {
+        this.donor = donor;
+    }
 }
