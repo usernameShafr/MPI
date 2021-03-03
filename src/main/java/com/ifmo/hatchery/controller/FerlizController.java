@@ -35,7 +35,7 @@ public class FerlizController {
 
     @RequestMapping(value = { "update" }, method = RequestMethod.POST)
     public String createOrder(Model model,
-                              @RequestParam("updateStage") List<Long> updateStageID) {
+                              @RequestParam(required = false,value = "updateStage") List<Long> updateStageID) {
         if(updateStageID == null || updateStageID.isEmpty()) {
             return "/home";
         }

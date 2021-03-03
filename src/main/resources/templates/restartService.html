@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hatchery: Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <p><a th:href="@{/dashboard}">Вернуться в Dashboard</a></p>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-8">
+            <h1><span th:text="${stage1}" ></span> SERVICE</h1>
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">In queue</th>
+                    <th scope="col">In progress</th>
+                    <th scope="col">Failed</th>
+                    <th scope="col">Completed</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><span th:text="${TABLE_MAP['QUEUE']}"></span></td>
+                    <td><span th:text="${TABLE_MAP['IN_PROGRESS']}"></span></td>
+                    <td><span th:text="${TABLE_MAP['FAILED']}"></span></td>
+                    <td><span th:text="${TABLE_MAP['COMPLETED']}"></span></td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col"></div>
+    </div>
+</div>
+</body>
+</html>
