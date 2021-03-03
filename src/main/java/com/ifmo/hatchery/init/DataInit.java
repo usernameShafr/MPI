@@ -1,18 +1,34 @@
 package com.ifmo.hatchery.init;
 
 import com.example.demo.entity.Person;
+import com.ifmo.hatchery.model.auth.Role;
+import com.ifmo.hatchery.model.auth.User;
 import com.ifmo.hatchery.model.system.Skill;
+import com.ifmo.hatchery.repository.RoleRepository;
 import com.ifmo.hatchery.repository.SkillRepository;
+import com.ifmo.hatchery.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+
 @Component
 public class DataInit implements ApplicationRunner {
 
+
+
+
+
+
+
     @Autowired
     private SkillRepository<Skill, Long> skillRepository;
+    @Autowired
+    private UserRepository<User, Long> userRepository;
+    @Autowired
+    private RoleRepository<Role, Long> roleRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -31,17 +47,30 @@ public class DataInit implements ApplicationRunner {
             skill.setName("Singer");
             skillRepository.save(skill);
 
+            Role role = new Role();
+            role.setName("CUSTOMER");
+            roleRepository.save(role);
 
+            User user = new User();
+            user.setEmail("email@gmail.com");
+            user.setUsername("username");
+            user.setLastName("lastname");
+            user.setPassword("password");
+            user.setRoles(Collections.singleton(role));
+            userRepository.save(user);
 
-            //
-            Person p2 = new Person();
+            role = new Role();
+            role.setName("DISPATCHER");
+            roleRepository.save(role);
 
-            p2.setCasta("BETA");
+            user = new User();
+            user.setEmail("email1@gmail.com");
+            user.setUsername("username1");
+            user.setLastName("lastname1");
+            user.setPassword("password");
+            user.setRoles(Collections.singleton(role));
+            userRepository.save(user);
 
-            p2.setCount("56");
-            p2.setStatus("treatment");
-
-           // personDAO.save(p2);
         }
 
     }

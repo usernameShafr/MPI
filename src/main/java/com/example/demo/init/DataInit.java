@@ -19,6 +19,7 @@ public class DataInit implements ApplicationRunner {
     public DataInit(PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
+
  
     @Override
     public void run(ApplicationArguments args) throws Exception {
