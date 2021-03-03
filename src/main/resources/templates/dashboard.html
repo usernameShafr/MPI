@@ -33,10 +33,10 @@
                         <td><span th:text="${TABLE_MAP['FERTILIZATION.FAILED']}"></span></td>
                         <td><span th:text="${TABLE_MAP['FERTILIZATION.COMPLETED']}"></span></td>
                         <td th:if="${T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['FERTILIZATION.COMPLETED'])}">
-                            Failed
+                            <a th:href="@{/restartService/fertilization}">Failed</a>
                         </td>
                         <td th:if="${!(T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['FERTILIZATION.COMPLETED']))}">
-                            Active
+                            <a th:href="@{/restartService/fertilization}">Active</a>
                         </td>
                         <td th:if="${TABLE_MAP['FERTILIZATION.QUEUE'] > 0L}">
                             <a th:href="@{/task/fertilization}">Get task!</a>
@@ -52,10 +52,10 @@
                         <td><span th:text="${TABLE_MAP['CHOOSE_CASTE.FAILED']}"></span></td>
                         <td><span th:text="${TABLE_MAP['CHOOSE_CASTE.COMPLETED']}"></span></td>
                         <td th:if="${T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['CHOOSE_CASTE.COMPLETED'])}">
-                            Failed
+                            <a th:href="@{/restartService/choose_caste}">Failed</a>
                         </td>
                         <td th:if="${!(T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['CHOOSE_CASTE.COMPLETED']))}">
-                            Active
+                            <a th:href="@{/restartService/choose_caste}">Active</a>
                         </td>
                         <td th:if="${TABLE_MAP['CHOOSE_CASTE.QUEUE'] > 0L}">
                             Get task!
@@ -71,10 +71,10 @@
                         <td><span th:text="${TABLE_MAP['BOKANOVSKIY.FAILED']}"></span></td>
                         <td><span th:text="${TABLE_MAP['BOKANOVSKIY.COMPLETED']}"></span></td>
                         <td th:if="${T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['BOKANOVSKIY.COMPLETED'])}">
-                            Failed
+                            <a th:href="@{/restartService/bokanovskiy}">Failed</a>
                         </td>
                         <td th:if="${!(T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['BOKANOVSKIY.COMPLETED']))}">
-                            Active
+                            <a th:href="@{/restartService/bokanovskiy}">Active</a>
                         </td>
                         <td th:if="${TABLE_MAP['BOKANOVSKIY.QUEUE'] > 0L}">
                             Get task!
@@ -90,10 +90,10 @@
                         <td><span th:text="${TABLE_MAP['ADD_SKILLS.FAILED']}"></span></td>
                         <td><span th:text="${TABLE_MAP['ADD_SKILLS.COMPLETED']}"></span></td>
                         <td th:if="${T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['ADD_SKILLS.COMPLETED'])}">
-                            Failed
+                            <a th:href="@{/restartService/add_skills}">Failed</a>
                         </td>
                         <td th:if="${!(T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['ADD_SKILLS.COMPLETED']))}">
-                            Active
+                            <a th:href="@{/restartService/add_skills}">Active</a>
                         </td>
                         <td th:if="${TABLE_MAP['ADD_SKILLS.QUEUE'] > 0L}">
                             Get task!
