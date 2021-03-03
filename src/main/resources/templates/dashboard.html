@@ -58,7 +58,7 @@
                             <a th:href="@{/restartService/choose_caste}">Active</a>
                         </td>
                         <td th:if="${TABLE_MAP['CHOOSE_CASTE.QUEUE'] > 0L}">
-                            Get task!
+                            <a th:href="@{/task/choose_caste}">Get task!</a>
                         </td>
                         <td th:if="${TABLE_MAP['CHOOSE_CASTE.QUEUE'] == 0L}">
                             No tasks
@@ -77,7 +77,7 @@
                             <a th:href="@{/restartService/bokanovskiy}">Active</a>
                         </td>
                         <td th:if="${TABLE_MAP['BOKANOVSKIY.QUEUE'] > 0L}">
-                            Get task!
+                            <a th:href="@{/task/bokanovskiy}">Get task!</a>
                         </td>
                         <td th:if="${TABLE_MAP['BOKANOVSKIY.QUEUE'] == 0L}">
                             No tasks
@@ -96,7 +96,7 @@
                             <a th:href="@{/restartService/add_skills}">Active</a>
                         </td>
                         <td th:if="${TABLE_MAP['ADD_SKILLS.QUEUE'] > 0L}">
-                            Get task!
+                            <a th:href="@{/task/add_skills}">Get task!</a>
                         </td>
                         <td th:if="${TABLE_MAP['ADD_SKILLS.QUEUE'] == 0L}">
                             No tasks
