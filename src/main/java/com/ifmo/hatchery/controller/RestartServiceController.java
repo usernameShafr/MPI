@@ -1,9 +1,11 @@
 package com.ifmo.hatchery.controller;
 
 import com.ifmo.hatchery.model.auth.User;
-import com.ifmo.hatchery.model.system.*;
+import com.ifmo.hatchery.model.system.Biomaterial;
+import com.ifmo.hatchery.model.system.Stage;
+import com.ifmo.hatchery.model.system.Task;
+import com.ifmo.hatchery.model.system.TaskLockStatus;
 import com.ifmo.hatchery.repository.BiomaterialRepository;
-import com.ifmo.hatchery.repository.TaskLockRepository;
 import com.ifmo.hatchery.repository.TaskRepository;
 import com.ifmo.hatchery.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,6 @@ public class RestartServiceController {
 
     @Autowired
     private TaskRepository<Task, Long> taskRepository;
-
-    @Autowired
-    private TaskLockRepository<TaskLock, Long> taskLockRepository;
 
     @Autowired
     private UserRepository<User, Long> userRepository;
@@ -62,9 +61,9 @@ public class RestartServiceController {
         List<Task> allTasks = taskRepository.findAll();
         Map<String, Object> paramsMap = new HashMap<>();
 
-        paramsMap.put("QUEUE", stageTasks.stream().filter(task -> task.getTaskLock() == null).count());
-        paramsMap.put("IN_PROGRESS", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.LOCKED).count());
-        paramsMap.put("FAILED", stageTasks.stream().filter(task -> task.getTaskLock() != null && task.getTaskLock().getLockStatus() == TaskLockStatus.FAILED).count());
+        paramsMap.put("QUEUE", stageTasks.stream().filter(task -> task.getLockStatus() == null).count());
+        paramsMap.put("IN_PROGRESS", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.LOCKED).count());
+        paramsMap.put("FAILED", stageTasks.stream().filter(task -> task.getLockStatus() != null && task.getLockStatus() == TaskLockStatus.FAILED).count());
         switch (stage) {
             case FERTILIZATION:
                 paramsMap.put("COMPLETED", filterTaskByStages(allTasks, Stage.CHOOSE_CASTE, Stage.BOKANOVSKIY, Stage.ADD_SKILLS, Stage.FINISH).size());

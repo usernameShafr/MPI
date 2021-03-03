@@ -4,12 +4,11 @@ import com.ifmo.hatchery.model.auth.User;
 import com.ifmo.hatchery.model.system.BioState;
 import com.ifmo.hatchery.model.system.Biomaterial;
 import com.ifmo.hatchery.model.system.BiomaterialType;
+import com.ifmo.hatchery.model.system.Caste;
 import com.ifmo.hatchery.model.system.Stage;
 import com.ifmo.hatchery.model.system.Task;
-import com.ifmo.hatchery.model.system.TaskLock;
 import com.ifmo.hatchery.model.system.TaskLockStatus;
 import com.ifmo.hatchery.repository.BiomaterialRepository;
-import com.ifmo.hatchery.repository.TaskLockRepository;
 import com.ifmo.hatchery.repository.TaskRepository;
 import com.ifmo.hatchery.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,6 @@ import java.util.Optional;
 public class TaskController {
     @Autowired
     private TaskRepository<Task, Long> taskRepository;
-
-    @Autowired
-    private TaskLockRepository<TaskLock, Long> taskLockRepository;
 
     @Autowired
     private UserRepository<User, Long> userRepository;
@@ -81,8 +77,23 @@ public class TaskController {
 
     @RequestMapping(value = { "/processTask" }, method = RequestMethod.POST)
     public String processTask(Model model,
-                              @RequestParam(value = "taskId", required = true) String taskId) {
+                              @RequestParam(value = "taskId", required = true) String taskId,
+                              @RequestParam(value = "maleBioMaterialId", required = false) Long maleBioMaterialId,
+                              @RequestParam(value = "femaleBioMaterialId", required = false) Long femaleBioMaterialId,
+                              @RequestParam(value = "caste", required = false) Caste caste,
+                              @RequestParam(value = "skills", required = false) List<Long> skillIDs,
+                              @RequestParam(value = "amount", required = false) Long amount
+                              ) {
         Task task = taskRepository.getOne(Long.valueOf(taskId));
+        if(!validateParameters(model,
+                task,
+                "" + maleBioMaterialId,
+                "" + femaleBioMaterialId,
+                caste,
+                skillIDs,
+                amount)) {
+            return "redirect:/dashboard";
+        }
         /*switch (task.getStage()) {
             case FERTILIZATION:
 
@@ -97,22 +108,36 @@ public class TaskController {
         return "redirect:/dashboard";
     }
 
+
+    private boolean validateParameters(Model model,
+                                       Task task,
+                                       String maleBioMaterialId,
+                                       String femaleBioMaterialId,
+                                       Caste caste,
+                                       List<Long> skillIDs,
+                                       Long amount) {
+        boolean validated = true;
+        /*switch (task.getStage()) {
+            case FERTILIZATION:
+                if(maleBioMaterialId == null ||)
+        }*/
+        return validated;
+    }
+
+    private void processParameters() {
+
+    }
+
     @Transactional(isolation = Isolation.SERIALIZABLE)
     private synchronized Optional<Task> getTaskWithLock(Stage stage, User user) {
         List<Task> taskList = taskRepository.findAllByStageWithoutLock(stage);
         if(taskList.isEmpty()){
             return Optional.empty();
         }
-        TaskLock taskLock = new TaskLock();
-        taskLock.setHandler(user);
-        taskLock.setLockStatus(TaskLockStatus.LOCKED);
         for(Task task : taskList) {
             task.setLockStatus(TaskLockStatus.LOCKED);
             task.setLockUser(user);
             return Optional.of(taskRepository.save(task));
-            /*taskLock = taskLockRepository.save(taskLock);
-            task.setTaskLock(taskLock);
-            return Optional.of(taskRepository.save(task));*/
         }
         return Optional.empty();
     }
@@ -120,27 +145,12 @@ public class TaskController {
     @Transactional
     private void lockFailed(Task task) {
         task.setLockStatus(TaskLockStatus.FAILED);
-        /*TaskLock taskLock = task.getTaskLock();
-        if(taskLock != null) {
-            taskLock.setLockStatus(TaskLockStatus.FAILED);
-            taskLockRepository.save(taskLock);
-        }*/
     }
 
     @Transactional
     private void unlockTask(Task task) {
         task.setLockStatus(null);
         taskRepository.save(task);
-        /*TaskLock taskLock = task.getTaskLock();
-        if(taskLock != null) {
-            //task.setTaskLock(null);
-            //taskRepository.save(task);
-            taskLockRepository.delete(taskLock);
-
-            //TODO: remove it
-            Task updatedTask = taskRepository.getOne(task.getId());
-            System.err.println("Lock(" + updatedTask.getId() + "): " + updatedTask.getTaskLock());
-        }*/
     }
 
     private Task nextStage(Task task) {
