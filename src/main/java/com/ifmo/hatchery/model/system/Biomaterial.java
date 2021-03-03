@@ -29,35 +29,7 @@ public class Biomaterial {
     @JoinColumn(name = "donor_id")
     private User donor;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public BiomaterialType getType() {
-        return type;
-    }
-
-    public void setType(BiomaterialType type) {
-        this.type = type;
-    }
-
-    public BioState getBioState() {
-        return bioState;
-    }
-
-    public void setBioState(BioState bioState) {
-        this.bioState = bioState;
-    }
-
-    public User getDonor() {
-        return donor;
-    }
-
-    public void setDonor(User donor) {
-        this.donor = donor;
+    public String getFormSting() {
+        return String.format("id=%s, type=%s, state=%s, donor={username=%s, lastname=%s}", id, type, bioState, donor.getUsername(), donor.getLastName());
     }
 }
