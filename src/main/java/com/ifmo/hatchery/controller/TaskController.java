@@ -11,6 +11,7 @@ import com.ifmo.hatchery.model.system.TaskLockStatus;
 import com.ifmo.hatchery.repository.BiomaterialRepository;
 import com.ifmo.hatchery.repository.TaskRepository;
 import com.ifmo.hatchery.repository.UserRepository;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,12 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("task")
 public class TaskController {
+    private static final String REDIRECT_DASHBOARD = "redirect:/dashboard";
     @Autowired
     private TaskRepository<Task, Long> taskRepository;
 
@@ -69,7 +72,7 @@ public class TaskController {
         } else {
             model.addAttribute("errorMessage", String.format("Task for %s isn't found in queue", stage));
             System.err.println("Task not found");
-            return "redirect:/dashboard";
+            return REDIRECT_DASHBOARD;
         }
         model.addAttribute("taskForProcess", task.get());
         return "/task";
@@ -86,7 +89,7 @@ public class TaskController {
                               ) {
         Task task = taskRepository.getOne(taskId);
         if(task == null) {
-            model.addAttribute("errorMessage", "Task with id " + taskId + " isn't found");
+            return returnToDashboardWithParams(REDIRECT_DASHBOARD, "Task with id " + taskId + " isn't found", "");
         }
         if(!validateParameters(model,
                 task,
@@ -95,8 +98,10 @@ public class TaskController {
                 caste,
                 skillIDs,
                 amount)) {
-            return "redirect:/dashboard";
+
+            return returnToDashboardWithParams(REDIRECT_DASHBOARD, model.getAttribute("errorMessage") + "", "");
         }
+
         /*switch (task.getStage()) {
             case FERTILIZATION:
 
@@ -105,9 +110,16 @@ public class TaskController {
         task = nextStage(task);
         taskRepository.save(task);
         unlockTask(task);
+        return returnToDashboardWithParams(REDIRECT_DASHBOARD, "", String.format("Task %s processed and moved to %s", task.getId(), task.getStage()));
+    }
 
-        model.addAttribute("infoMessage", String.format("Task added"));
-        return "redirect:/dashboard";
+    @SneakyThrows
+    private String returnToDashboardWithParams(String redirectUrl, String errorMessage, String infoMessage) {
+        String query = String.format("?errorMessage=%s&infoMessage=%s",
+                URLEncoder.encode(errorMessage, "UTF-8"),
+                URLEncoder.encode(infoMessage, "UTF-8"));
+
+        return redirectUrl + query;
     }
 
 

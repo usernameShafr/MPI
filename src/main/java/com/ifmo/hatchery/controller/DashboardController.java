@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,7 +26,9 @@ public class DashboardController {
     private TaskRepository<Task, Long> taskRepository;
 
     @RequestMapping(value = { "", "/", "/index" }, method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model,
+                        @RequestParam(value = "infoMessage", required = false) String infoMessage,
+                        @RequestParam(value = "errorMessage", required = false) String errorMessage) {
 
         List<Task> allTasks = taskRepository.findAll();
         Map<String, Object> paramsMap = new HashMap<>();
@@ -68,7 +71,12 @@ public class DashboardController {
         paramsMap.put("FINISH.COMPLETED", filterTaskByStages(allTasks, Stage.FINISH).size());
 
         model.addAttribute("TABLE_MAP", paramsMap);
-
+        if(errorMessage != null){
+            model.addAttribute("errorMessage", errorMessage);
+        }
+        if(infoMessage != null){
+            model.addAttribute("infoMessage", infoMessage);
+        }
         return "/dashboard";
     }
 
