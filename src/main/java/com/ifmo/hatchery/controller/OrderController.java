@@ -38,7 +38,16 @@ public class OrderController {
     private UserRepository<User, Long> userRepository;
 
     @RequestMapping(value = { "", "/", "/index" }, method = RequestMethod.GET)
-    public String index(Model model) {
+    public String index(Model model, Authentication authentication) {
+        User customer = userRepository.findByUsername(authentication.getName());
+        List<OrderX> orders;
+        if (customer != null) {
+            orders = orderRepository.findByCustomer(customer);
+        } else {
+            orders = orderRepository.findAll();
+        }
+        model.addAttribute("myOrders", orders);
+
         model.addAttribute("availableSkills", skillRepository.findAll());
         return "/order";
     }

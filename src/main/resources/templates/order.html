@@ -9,39 +9,60 @@
 </head>
 <body>
     <div class="container">
-    <div class="row">
-        <div class="col"></div>
-        <div class="col-6">
-            <h1>Create order</h1>
-            <form th:action="@{order/createOrder}"
-                  method="POST"><!--th:object="${personForm}" -->
-                <div class="form-group">
-                    <label for="caste">Caste</label>
-                    <select class="form-control" id="caste" name="caste">
-                        <option th:each="casteOpt : ${T(com.ifmo.hatchery.model.system.Caste).values()}"
-                                th:value="${casteOpt}" th:text="${casteOpt}"></option>
-                    </select>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-4">
+                <h1>New order</h1>
+                <form th:action="@{order/createOrder}"
+                      method="POST"><!--th:object="${personForm}" -->
+                    <div class="form-group">
+                        <label for="caste">Caste</label>
+                        <select class="form-control" id="caste" name="caste">
+                            <option th:each="casteOpt : ${T(com.ifmo.hatchery.model.system.Caste).values()}"
+                                    th:value="${casteOpt}" th:text="${casteOpt}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Skills</label>
+                        <th:block th:each="skill : ${availableSkills}">
+                            <div class="checkbox">
+                                <input type="checkbox" name="skills" th:value="${skill.id}"/>
+                                <label th:text="${skill.name}"></label>
+                            </div>
+                        </th:block>
+                    </div>
+                    <input type="submit" value="Create" class="btn btn-outline-success"/>
+                </form>
+                <div th:if="${errorMessage}" th:utext="${errorMessage}"
+                     style="color:red;font-style:italic;">
                 </div>
-                <div class="form-group">
-                    <label>Skills</label>
-                    <th:block th:each="skill : ${availableSkills}">
-                        <div class="row">
-                            <input type="checkbox" name="skills" th:value="${skill.id}"/>
-                            <label th:text="${skill.name}"></label>
-                        </div>
-                    </th:block>
-                    <!--<input type="text" class="form-control" id="exampleCount"placeholder="Enter count of humans"  th:field="*{count}">-->
-                    <!--<small id="emailHelp" class="form-text text-muted">Number of humans in order</small>-->
-                </div>
-                <input type="submit" value="Create" class="btn btn-outline-success"/>
-            </form>
-            <div th:if="${errorMessage}" th:utext="${errorMessage}"
-                 style="color:red;font-style:italic;">
             </div>
+            <div class="col-6">
+                <h1>My orders</h1>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Caste</th>
+                            <th scope="col">Skills</th>
+                            <th scope="col">Task Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${myOrders.empty}">
+                            <td colspan="4"> No Orders Available </td>
+                        </tr>
+                        <tr th:each="order : ${myOrders}">
+                            <th scope="row"><span th:text="${order.id}"></span></th>
+                            <td><span th:text="${order.caste}"></span></td>
+                            <td><span th:text="${order.skillNames}"></span></td>
+                            <td><span th:text="${order.task.stage}"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col"></div>
         </div>
-        <div class="col"></div>
     </div>
-    <div class="row"><div class="col"></div></div>
-</div>
 </body>
 </html>

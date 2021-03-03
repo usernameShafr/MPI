@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -45,6 +46,10 @@ public class OrderX {
     @Override
     public String toString() {
         String taskString = (task == null) ? "" : String.format("{Task[id=%s, stage=%s]}", this.task.getId(), task.getStage());
-        return String.format("Order[id=%s, caste=%s, customer=%s, task=%s]", this.id, this.caste, this.customer, taskString);
+        return String.format("Order[id=%s, caste=%s, customer=%s, skills=[%s], task=%s]", this.id, this.caste, this.customer, getSkillNames(), taskString);
+    }
+
+    public String getSkillNames() {
+        return skills.stream().map(Skill::getName).collect(Collectors.joining(", "));
     }
 }
