@@ -54,6 +54,7 @@
                                     th:selected="${casteOpt == taskForProcess.order.caste}"></option>
                         </select>
                     </div>
+                    <!-- OR -->
                     <div class="row" th:if="${T(com.ifmo.hatchery.controller.TaskController).isStageAfter(taskForProcess.stage, T(com.ifmo.hatchery.model.system.Stage).CHOOSE_CASTE)}">
                         <label for="caste">Caste</label>
                         <input type="text" placeholder="${taskForProcess.caste}" readonly>

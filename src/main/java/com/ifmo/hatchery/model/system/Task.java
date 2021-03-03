@@ -48,7 +48,7 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Caste caste;
 
-    private int amount;
+    private long amount;
 
     @Enumerated(EnumType.STRING)
     private Stage stage;

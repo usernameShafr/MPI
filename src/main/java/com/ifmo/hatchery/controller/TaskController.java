@@ -5,10 +5,12 @@ import com.ifmo.hatchery.model.system.BioState;
 import com.ifmo.hatchery.model.system.Biomaterial;
 import com.ifmo.hatchery.model.system.BiomaterialType;
 import com.ifmo.hatchery.model.system.Caste;
+import com.ifmo.hatchery.model.system.Skill;
 import com.ifmo.hatchery.model.system.Stage;
 import com.ifmo.hatchery.model.system.Task;
 import com.ifmo.hatchery.model.system.TaskLockStatus;
 import com.ifmo.hatchery.repository.BiomaterialRepository;
+import com.ifmo.hatchery.repository.SkillRepository;
 import com.ifmo.hatchery.repository.TaskRepository;
 import com.ifmo.hatchery.repository.UserRepository;
 import lombok.SneakyThrows;
@@ -23,8 +25,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.net.URLEncoder;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("task")
@@ -39,6 +44,9 @@ public class TaskController {
 
     @Autowired
     private BiomaterialRepository<Biomaterial, Long> biomaterialRepository;
+
+    @Autowired
+    private SkillRepository<Skill, Long> skillRepository;
 
     @RequestMapping(value = {"/fertilization" }, method = RequestMethod.GET)
     public String getFertilizationTask(Model model, Authentication authentication) {
@@ -108,13 +116,13 @@ public class TaskController {
                 processSucceed = processFertilization(model, task, maleBioMaterialId, femaleBioMaterialId);
                 break;
             case CHOOSE_CASTE:
-                processSucceed = false;
+                processSucceed = processCaste(model, task, caste);
                 break;
             case BOKANOVSKIY:
-                processSucceed = false;
+                processSucceed = processBokanovskiy(model, task, amount);
                 break;
             case ADD_SKILLS:
-                processSucceed = false;
+                processSucceed = processAddSkills(model, task, skillIDs);
                 break;
         }
         if(!processSucceed) {
@@ -151,6 +159,45 @@ public class TaskController {
         task.setBiomaterialMale(biomaterialRepository.save(maleBio.get()));
         task.setBiomaterialFemale(biomaterialRepository.save(femaleBio.get()));
         return true;
+    }
+
+    @Transactional
+    private boolean processCaste(Model model, Task task, Caste casteFromRequest) {
+        if(task.getOrder().getCaste() == casteFromRequest) {
+            task.setCaste(casteFromRequest);
+            taskRepository.save(task);
+            return true;
+        } else {
+            model.addAttribute(ERROR_ATTRIBUTE, String.format("Requested caste isn't match original request.\nActual: %s\nExpected: %s",
+                    casteFromRequest, task.getOrder().getCaste()));
+            return false;
+        }
+    }
+
+    @Transactional
+    private boolean processBokanovskiy(Model model, Task task, Long amount) {
+        Caste caste = task.getCaste();
+        long maxAmount = caste.getMaxAmount();
+        long minAmount = caste.getMinAmount();
+        if(amount >= minAmount && amount <= maxAmount) {
+            task.setAmount(amount);
+            taskRepository.save(task);
+            return true;
+        }
+        model.addAttribute(ERROR_ATTRIBUTE, String.format("Requested amount isn't match caste limits. Actual: %s\nExpected: [%s - %s]", amount, minAmount, maxAmount));
+        return false;
+    }
+
+    private boolean processAddSkills(Model model, Task task, List<Long> skillIDs) {
+        Collection<Skill> orderedSkills = task.getOrder().getSkills();
+        List<Skill> requestedSkills = skillRepository.findAllById(skillIDs);
+        Set<Skill> skillsSet = new HashSet<>(orderedSkills);
+        skillsSet.addAll(requestedSkills);
+        if(skillsSet.size() == orderedSkills.size() && skillsSet.size() == requestedSkills.size()){
+            return true;
+        }
+        model.addAttribute(ERROR_ATTRIBUTE, String.format("Requested skills isn't match original request. Actual: %s\nExpected: %s", requestedSkills, orderedSkills));
+        return false;
     }
 
     @SneakyThrows
