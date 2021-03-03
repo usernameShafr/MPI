@@ -50,4 +50,8 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     private Stage stage;
+
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "task_lock_id")
+    private TaskLock taskLock;
 }

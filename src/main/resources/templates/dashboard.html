@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hatchery: Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-8">
+                <h1>Dashboard</h1>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">Service Type</th>
+                        <th scope="col">In queue</th>
+                        <th scope="col">In progress</th>
+                        <th scope="col">Failed</th>
+                        <th scope="col">Completed</th>
+                        <th scope="col">Service status</th>
+                        <th scope="col">Get task</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">Fertilization service</th>
+                        <td><span th:text="${TABLE_MAP['FERTILIZATION.QUEUE']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['FERTILIZATION.IN_PROGRESS']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['FERTILIZATION.FAILED']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['FERTILIZATION.COMPLETED']}"></span></td>
+                        <td th:if="${T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['FERTILIZATION.COMPLETED'])}">
+                            Failed
+                        </td>
+                        <td th:if="${!(T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['FERTILIZATION.COMPLETED']))}">
+                            Active
+                        </td>
+                        <td th:if="${TABLE_MAP['FERTILIZATION.QUEUE'] > 0L}">
+                            Get task!
+                        </td>
+                        <td th:if="${TABLE_MAP['FERTILIZATION.QUEUE'] == 0L}">
+                            No tasks
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Caste service</th>
+                        <td><span th:text="${TABLE_MAP['CHOOSE_CASTE.QUEUE']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['CHOOSE_CASTE.IN_PROGRESS']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['CHOOSE_CASTE.FAILED']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['CHOOSE_CASTE.COMPLETED']}"></span></td>
+                        <td th:if="${T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['CHOOSE_CASTE.COMPLETED'])}">
+                            Failed
+                        </td>
+                        <td th:if="${!(T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['CHOOSE_CASTE.COMPLETED']))}">
+                            Active
+                        </td>
+                        <td th:if="${TABLE_MAP['CHOOSE_CASTE.QUEUE'] > 0L}">
+                            Get task!
+                        </td>
+                        <td th:if="${TABLE_MAP['CHOOSE_CASTE.QUEUE'] == 0L}">
+                            No tasks
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Bokanovskiy service</th>
+                        <td><span th:text="${TABLE_MAP['BOKANOVSKIY.QUEUE']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['BOKANOVSKIY.IN_PROGRESS']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['BOKANOVSKIY.FAILED']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['BOKANOVSKIY.COMPLETED']}"></span></td>
+                        <td th:if="${T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['BOKANOVSKIY.COMPLETED'])}">
+                            Failed
+                        </td>
+                        <td th:if="${!(T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['BOKANOVSKIY.COMPLETED']))}">
+                            Active
+                        </td>
+                        <td th:if="${TABLE_MAP['BOKANOVSKIY.QUEUE'] > 0L}">
+                            Get task!
+                        </td>
+                        <td th:if="${TABLE_MAP['BOKANOVSKIY.QUEUE'] == 0L}">
+                            No tasks
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Skills service</th>
+                        <td><span th:text="${TABLE_MAP['ADD_SKILLS.QUEUE']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['ADD_SKILLS.IN_PROGRESS']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['ADD_SKILLS.FAILED']}"></span></td>
+                        <td><span th:text="${TABLE_MAP['ADD_SKILLS.COMPLETED']}"></span></td>
+                        <td th:if="${T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['ADD_SKILLS.COMPLETED'])}">
+                            Failed
+                        </td>
+                        <td th:if="${!(T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['ADD_SKILLS.COMPLETED']))}">
+                            Active
+                        </td>
+                        <td th:if="${TABLE_MAP['ADD_SKILLS.QUEUE'] > 0L}">
+                            Get task!
+                        </td>
+                        <td th:if="${TABLE_MAP['ADD_SKILLS.QUEUE'] == 0L}">
+                            No tasks
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Storage service</th>
+                        <td><span th:text="${T(com.ifmo.hatchery.controller.DashboardController).NOT_APPLICABLE}"></span></td>
+                        <td><span th:text="${T(com.ifmo.hatchery.controller.DashboardController).NOT_APPLICABLE}"></span></td>
+                        <td><span th:text="${T(com.ifmo.hatchery.controller.DashboardController).NOT_APPLICABLE}"></span></td>
+                        <td><span th:text="${TABLE_MAP['FINISH.COMPLETED']}"></span></td>
+                        <td><span>Acitve</span></td>
+                        <td><span th:text="${T(com.ifmo.hatchery.controller.DashboardController).NOT_APPLICABLE}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</body>
+</html>
