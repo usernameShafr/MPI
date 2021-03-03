@@ -77,18 +77,21 @@ public class TaskController {
 
     @RequestMapping(value = { "/processTask" }, method = RequestMethod.POST)
     public String processTask(Model model,
-                              @RequestParam(value = "taskId", required = true) String taskId,
+                              @RequestParam(value = "taskId", required = true) Long taskId,
                               @RequestParam(value = "maleBioMaterialId", required = false) Long maleBioMaterialId,
                               @RequestParam(value = "femaleBioMaterialId", required = false) Long femaleBioMaterialId,
                               @RequestParam(value = "caste", required = false) Caste caste,
                               @RequestParam(value = "skills", required = false) List<Long> skillIDs,
                               @RequestParam(value = "amount", required = false) Long amount
                               ) {
-        Task task = taskRepository.getOne(Long.valueOf(taskId));
+        Task task = taskRepository.getOne(taskId);
+        if(task == null) {
+            model.addAttribute("errorMessage", "Task with id " + taskId + " isn't found");
+        }
         if(!validateParameters(model,
                 task,
-                "" + maleBioMaterialId,
-                "" + femaleBioMaterialId,
+                maleBioMaterialId,
+                femaleBioMaterialId,
                 caste,
                 skillIDs,
                 amount)) {
@@ -111,8 +114,8 @@ public class TaskController {
 
     private boolean validateParameters(Model model,
                                        Task task,
-                                       String maleBioMaterialId,
-                                       String femaleBioMaterialId,
+                                       Long maleBioMaterialId,
+                                       Long femaleBioMaterialId,
                                        Caste caste,
                                        List<Long> skillIDs,
                                        Long amount) {
