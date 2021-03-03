@@ -21,16 +21,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService  {
+public class UserService implements UserDetailsService {
     @PersistenceContext
     private EntityManager em;
     @Autowired
-    UserRepository userRepository;
+    UserRepository<User, Long> userRepository;
     @Autowired
-    RoleRepository roleRepository;
+    RoleRepository <Role, Long>roleRepository;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
 
@@ -40,7 +42,10 @@ public class UserService  {
 
         return user;
     }
-
+    public User findByUsername(String username ){
+        User user = userRepository.findByUsername(username);
+        return user;
+    }
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
@@ -50,14 +55,22 @@ public class UserService  {
         return userRepository.findAll();
     }
 
+    public boolean saveUser(User user) {
+        User userFromDB = userRepository.findByUsername(user.getUsername());
 
-
-    public boolean deleteUser(Long userId) {
-        if (userRepository.findById(userId).isPresent()) {
-            userRepository.deleteById(userId);
-            return true;
+        if (userFromDB != null) {
+            return false;
         }
-        return false;
+
+        //user.setRoles(Collections.singleton(roleRepository.findByName("ROLE_DISPETCHER")));
+        //user.setPassword("pas");
+        userRepository.save(user);
+        return true;
     }
 
+
+    public List<User> usergtList(Long idMin) {
+        return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
+                .setParameter("paramId", idMin).getResultList();
+    }
 }

@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.ifmo.hatchery.model.auth.Role;
 
 public interface RoleRepository <T extends Role, ID extends Long>extends JpaRepository<Role, Long> {
+    Role findByName( String name);
 }

@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8" />
       <title>Person List</title>
-      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+<!--      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>-->
       <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,7 +24,7 @@
                <a href="addPerson">Add Person</a>
             </div>
             <div class="col-2">
-               <a href="addPerson">Menu</a>
+               <a href="index">Menu</a>
             </div>
          </div>
          <div class="row">
@@ -32,16 +32,16 @@
                <table id="table" class="table table-striped table-bordered small" style="width: 100%">
                   <thead class="thead-light">
                   <tr>
-                     <th scope="col">Casta</th>
-                     <th scope="col">Count</th>
-                     <th scope="col">Status</th>
+                     <th scope="col">Username</th>
+                     <th scope="col">Password</th>
+                     <th scope="col">ROLE</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr th:each ="person : ${persons}">
-                     <td th:utext="${person.casta}">...</td>
-                     <td th:utext="${person.count}">...</td>
-                     <td th:utext="${person.status}">...</td>
+                     <td th:utext="${person.username}">...</td>
+                     <td th:utext="${person.password}">...</td>
+                     <td th:utext="${person.id}">...</td>
                   </tr>
                   </tbody>
                </table>
