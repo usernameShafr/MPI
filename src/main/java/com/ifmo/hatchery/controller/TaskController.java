@@ -101,7 +101,6 @@ public class TaskController {
             case FERTILIZATION:
 
         }*/
-        System.err.println("Model: " + model.asMap());
 
         task = nextStage(task);
         taskRepository.save(task);
@@ -120,10 +119,43 @@ public class TaskController {
                                        List<Long> skillIDs,
                                        Long amount) {
         boolean validated = true;
-        /*switch (task.getStage()) {
+        String message = "";
+        System.err.println(String.format("Validate task request: {task_id=%s, maleBioMaterialId=%s, " +
+                "femaleBioMaterialId=%s, caste=%s, skillIDs=%s, amount=%s}",
+                task.getId(), maleBioMaterialId, femaleBioMaterialId, caste, skillIDs, amount));
+        switch (task.getStage()) {
             case FERTILIZATION:
-                if(maleBioMaterialId == null ||)
-        }*/
+                if(!(maleBioMaterialId == null || maleBioMaterialId > 0L)) {
+                    message += "'maleBioMaterialId' ins't exist in request\n";
+                    validated = false;
+                }
+                if(!(femaleBioMaterialId == null || femaleBioMaterialId > 0L)) {
+                    message += "'femaleBioMaterialId' ins't exist in request\n";
+                    validated = false;
+                }
+                break;
+            case CHOOSE_CASTE:
+                if(!(caste == null)) {
+                    message += "'caste' ins't exist in request\n";
+                    validated = false;
+                }
+                break;
+            case BOKANOVSKIY:
+                if(!(amount == null || amount > 0L)) {
+                    message += "'amount' ins't exist in request\n";
+                    validated = false;
+                }
+                break;
+            case ADD_SKILLS:
+                if(!(skillIDs == null || skillIDs.isEmpty())) {
+                    message += "'skillIDs' ins't exist in request\n";
+                    validated = false;
+                }
+                break;
+        }
+        if(!message.isEmpty()) {
+            model.addAttribute("errorMessage", String.format("%s: %s", task.getStage(), message));
+        }
         return validated;
     }
 
