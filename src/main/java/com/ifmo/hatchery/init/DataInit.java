@@ -1,6 +1,5 @@
 package com.ifmo.hatchery.init;
 
-import com.example.demo.entity.Person;
 import com.ifmo.hatchery.model.auth.Role;
 import com.ifmo.hatchery.model.auth.User;
 import com.ifmo.hatchery.model.system.Skill;
