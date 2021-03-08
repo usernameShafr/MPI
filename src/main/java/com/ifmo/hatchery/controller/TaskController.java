@@ -273,7 +273,8 @@ public class TaskController {
             return Optional.empty();
         }
         for(Task task : taskList) {
-            task.setLockStatus(TaskLockStatus.LOCKED);
+            if (task.getLockStatus() != TaskLockStatus.FAILED) {
+            task.setLockStatus(TaskLockStatus.LOCKED);}
             task.setLockUser(user);
             return Optional.of(taskRepository.save(task));
         }
@@ -283,6 +284,7 @@ public class TaskController {
     @Transactional
     private void lockFailed(Task task) {
         task.setLockStatus(TaskLockStatus.FAILED);
+        taskRepository.save(task);
     }
 
     @Transactional

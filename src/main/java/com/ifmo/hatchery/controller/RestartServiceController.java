@@ -86,7 +86,11 @@ public class RestartServiceController {
     public String restartService(Model model, @RequestParam() Stage stage2) {
         System.err.println(stage2.toString().toLowerCase());
 
-        List<Task> stageTasks = taskRepository.findAllByStage(stage2);
+        List<Task> statusTasks = taskRepository.findAllByLockStatus(TaskLockStatus.FAILED);
+        for(Task task : statusTasks) {
+            task.setLockStatus(TaskLockStatus.LOCKED);
+            taskRepository.save(task);
+        }
 
         return "redirect:/restartService/"+stage2.toString().toLowerCase();
 

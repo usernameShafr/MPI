@@ -59,4 +59,89 @@ public class Task {
     @OneToOne(cascade = CascadeType.DETACH, orphanRemoval = true)
     @JoinColumn(name = "handler_id")
     private User lockUser;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public OrderX getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderX order) {
+        this.order = order;
+    }
+
+    public Biomaterial getBiomaterialMale() {
+        return biomaterialMale;
+    }
+
+    public void setBiomaterialMale(Biomaterial biomaterialMale) {
+        this.biomaterialMale = biomaterialMale;
+    }
+
+    public Biomaterial getBiomaterialFemale() {
+        return biomaterialFemale;
+    }
+
+    public void setBiomaterialFemale(Biomaterial biomaterialFemale) {
+        this.biomaterialFemale = biomaterialFemale;
+    }
+
+    public Collection<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Collection<Skill> skills) {
+        this.skills = skills;
+    }
+
+    public Caste getCaste() {
+        return caste;
+    }
+
+    public void setCaste(Caste caste) {
+        this.caste = caste;
+    }
+
+    public long getAmount() {
+        return amount;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public TaskLockStatus getLockStatus() {
+        return lockStatus;
+    }
+
+    public void setLockStatus(TaskLockStatus lockStatus) {
+        this.lockStatus = lockStatus;
+    }
+
+    public User getLockUser() {
+        return lockUser;
+    }
+
+    public void setLockUser(User lockUser) {
+        this.lockUser = lockUser;
+    }
 }
+
+
+
+
+

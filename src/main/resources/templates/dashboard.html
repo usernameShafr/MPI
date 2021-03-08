@@ -38,10 +38,10 @@
                         <td th:if="${!(T(com.ifmo.hatchery.controller.DashboardController).hasFailures(TABLE_MAP['FERTILIZATION.COMPLETED']))}">
                             <a th:href="@{/restartService/fertilization}">Active</a>
                         </td>
-                        <td th:if="${TABLE_MAP['FERTILIZATION.QUEUE'] > 0L}">
+                        <td th:if="${(TABLE_MAP['FERTILIZATION.QUEUE'] > 0L or TABLE_MAP['FERTILIZATION.IN_PROGRESS'] > 0L)}">
                             <a th:href="@{/task/fertilization}">Get task!</a>
                         </td>
-                        <td th:if="${TABLE_MAP['FERTILIZATION.QUEUE'] == 0L}">
+                        <td th:if="${(TABLE_MAP['FERTILIZATION.QUEUE'] == 0L and TABLE_MAP['FERTILIZATION.IN_PROGRESS'] == 0L)}">
                             No tasks
                         </td>
                     </tr>
