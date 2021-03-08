@@ -61,7 +61,7 @@ public class DataInit implements ApplicationRunner {
 
             user = new User();
             user.setEmail("email1@gmail.com");
-            user.setUsername("username1");
+            user.setUsername("usernameDispatcher");
             user.setLastName("lastname1");
             //user.setPassword("password");
             user.setPassword(bCryptPasswordEncoder.encode("password"));

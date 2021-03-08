@@ -88,7 +88,12 @@ public class RestartServiceController {
 
         List<Task> statusTasks = taskRepository.findAllByLockStatus(TaskLockStatus.FAILED);
         for(Task task : statusTasks) {
-            task.setLockStatus(TaskLockStatus.LOCKED);
+            task.setLockStatus(null);
+            taskRepository.save(task);
+        }
+        statusTasks = taskRepository.findAllByLockStatus(TaskLockStatus.LOCKED);
+        for(Task task : statusTasks) {
+            task.setLockStatus(null);
             taskRepository.save(task);
         }
 
