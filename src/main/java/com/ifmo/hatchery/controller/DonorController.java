@@ -30,10 +30,10 @@ public class DonorController {
     @RequestMapping(value = { "/", "/index","" }, method = RequestMethod.GET)
     public String index(Model model, Authentication authentication) {
         model.addAttribute("some_attribute", null);
-        System.err.println("ERRRRRRRRRRRRRRRRRRRRRRRROoooror");
+        //System.err.println("ERRRRRRRRRRRRRRRRRRRRRRRROoooror");
         User donor = userService.findByUsername(authentication.getName());
         model.addAttribute("gender_attribute", donor.getBiomaterialType());
-        System.err.println(donor.getBiomaterialType());
+        //System.err.println(donor.getBiomaterialType());
         return "donor";
     }
 
