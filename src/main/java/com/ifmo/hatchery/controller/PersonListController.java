@@ -1,6 +1,6 @@
 package com.ifmo.hatchery.controller;
 
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class PersonListController {
     //private static List<Person> persons = new ArrayList<Person>();
     @RequestMapping(value = { "/personList" }, method = RequestMethod.GET)
     public String personList(Model model) {
-        Iterable<User> all  = userRepository.findAll();
+        Iterable<UserX> all  = userRepository.findAll();
         model.addAttribute("persons", all);
 
         return "personList";

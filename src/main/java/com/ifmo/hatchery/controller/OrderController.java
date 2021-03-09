@@ -1,7 +1,7 @@
 package com.ifmo.hatchery.controller;
 
 import com.ifmo.hatchery.service.UserService;
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.model.system.Caste;
 import com.ifmo.hatchery.model.system.OrderX;
 import com.ifmo.hatchery.model.system.Skill;
@@ -36,13 +36,13 @@ public class OrderController {
     private TaskRepository<Task, Long> taskRepository;
 
     @Autowired
-    private UserRepository<User, Long> userRepository;
+    private UserRepository<UserX, Long> userRepository;
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = { "", "/", "/index" }, method = RequestMethod.GET)
     public String index(Model model, Authentication authentication) {
-        User customer = userService.findByUsername(authentication.getName());
+        UserX customer = userService.findByUsername(authentication.getName());
         List<OrderX> orders;
         if (customer != null) {
             orders = orderRepository.findByCustomer(customer);
@@ -74,7 +74,7 @@ public class OrderController {
         List<Skill> skillsList = skillRepository.findAllById(skillIDs);
         order.setSkills(skillsList);
 
-        User customer = userService.findByUsername(authentication.getName());
+        UserX customer = userService.findByUsername(authentication.getName());
         order.setCustomer(customer);
 
         order = createTaskAndOrder(order);

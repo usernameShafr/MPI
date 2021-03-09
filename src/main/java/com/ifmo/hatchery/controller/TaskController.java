@@ -1,6 +1,6 @@
 package com.ifmo.hatchery.controller;
 
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.model.system.BioState;
 import com.ifmo.hatchery.model.system.Biomaterial;
 import com.ifmo.hatchery.model.system.BiomaterialType;
@@ -40,7 +40,7 @@ public class TaskController {
     private TaskRepository<Task, Long> taskRepository;
 
     @Autowired
-    private UserRepository<User, Long> userRepository;
+    private UserRepository<UserX, Long> userRepository;
 
     @Autowired
     private BiomaterialRepository<Biomaterial, Long> biomaterialRepository;
@@ -78,7 +78,7 @@ public class TaskController {
     }
 
     private String commonGetProcessing(Model model, Authentication authentication, Stage stage) {
-        User user = userRepository.findByUsername(authentication.getName());
+        UserX user = userRepository.findByUsername(authentication.getName());
         Optional<Task> task = getTaskWithLock(stage, user);
         if(task.isPresent()){
             System.err.println(task.get().getLockStatus() + ": " + task.get().getStage());
@@ -267,7 +267,7 @@ public class TaskController {
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    private synchronized Optional<Task> getTaskWithLock(Stage stage, User user) {
+    private synchronized Optional<Task> getTaskWithLock(Stage stage, UserX user) {
         List<Task> taskList = taskRepository.findAllByStageWithoutLock(stage);
         if(taskList.isEmpty()){
             return Optional.empty();

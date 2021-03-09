@@ -15,7 +15,7 @@ import java.util.Set;
 
 @Entity
 @Data
-public class User implements UserDetails {
+public class UserX implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,7 +40,7 @@ public class User implements UserDetails {
                     name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
-    public User() {
+    public UserX() {
     }
 
     public String getLastName() {

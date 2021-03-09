@@ -16,7 +16,7 @@ public class Role implements GrantedAuthority {
 
     private String name;
     @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
+    private Collection<UserX> users;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -43,11 +43,11 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    public Collection<User> getUsers() {
+    public Collection<UserX> getUsers() {
         return users;
     }
 
-    public void setUsers(Collection<User> users) {
+    public void setUsers(Collection<UserX> users) {
         this.users = users;
     }
 

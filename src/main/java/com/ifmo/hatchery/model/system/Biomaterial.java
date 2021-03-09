@@ -1,6 +1,6 @@
 package com.ifmo.hatchery.model.system;
 
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -27,7 +27,7 @@ public class Biomaterial {
 
     @ManyToOne
     @JoinColumn(name = "donor_id")
-    private User donor;
+    private UserX donor;
 
     public String getFormSting() {
         return String.format("id=%s, type=%s, state=%s, donor={username=%s, lastname=%s}", id, type, bioState, donor.getUsername(), donor.getLastName());

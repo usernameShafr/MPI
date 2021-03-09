@@ -1,6 +1,6 @@
 package com.ifmo.hatchery.controller;
 
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.model.system.*;
 import com.ifmo.hatchery.repository.*;
 import com.ifmo.hatchery.service.UserService;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("donor")
 public class DonorController {
@@ -22,7 +20,7 @@ public class DonorController {
     private BiomaterialRepository<Biomaterial, Long> biomaterialRepository;
 
     @Autowired
-    private UserRepository<User, Long> userRepository;
+    private UserRepository<UserX, Long> userRepository;
     @Autowired
     private UserService userService;
 
@@ -31,7 +29,7 @@ public class DonorController {
     public String index(Model model, Authentication authentication) {
         model.addAttribute("some_attribute", null);
         //System.err.println("ERRRRRRRRRRRRRRRRRRRRRRRROoooror");
-        User donor = userService.findByUsername(authentication.getName());
+        UserX donor = userService.findByUsername(authentication.getName());
         model.addAttribute("gender_attribute", donor.getBiomaterialType());
         //System.err.println(donor.getBiomaterialType());
         return "donor";
@@ -49,7 +47,7 @@ public class DonorController {
         Biomaterial biomaterials = new Biomaterial();
         biomaterials.setType(biomaterial);
         biomaterials.setBioState(BioState.NOT_USE);
-        User donor = userService.findByUsername(authentication.getName());
+        UserX donor = userService.findByUsername(authentication.getName());
         biomaterials.setDonor(donor);
 
         biomaterialRepository.save(biomaterials);

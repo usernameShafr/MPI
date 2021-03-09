@@ -1,6 +1,6 @@
 package com.ifmo.hatchery.model.system;
 
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -26,7 +26,7 @@ public class OrderX {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private User customer;
+    private UserX customer;
 
     @ManyToMany
     @JoinTable(

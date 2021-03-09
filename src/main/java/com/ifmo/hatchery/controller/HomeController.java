@@ -1,10 +1,7 @@
 package com.ifmo.hatchery.controller;
 
 import com.ifmo.hatchery.model.auth.Role;
-import com.ifmo.hatchery.model.auth.User;
-import com.ifmo.hatchery.model.system.OrderX;
-import com.ifmo.hatchery.model.system.Task;
-import com.ifmo.hatchery.repository.TaskRepository;
+import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -21,13 +18,13 @@ import java.util.stream.Collectors;
 @RequestMapping("home")
 public class HomeController {
     @Autowired
-    private UserRepository<User, Long> userRepository;
+    private UserRepository<UserX, Long> userRepository;
     @Autowired
     private com.ifmo.hatchery.service.UserService userService;
 
     @RequestMapping(value = { "", "/", "/index" }, method = RequestMethod.GET)
     public String index(Model model, Authentication authentication) {
-        User user = userService.findByUsername(authentication.getName());
+        UserX user = userService.findByUsername(authentication.getName());
         Set<Role> roles =user.getRoles();
         List<String> a = roles.stream().map(Role::getName).collect(Collectors.toList());
 

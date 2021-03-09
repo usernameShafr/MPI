@@ -1,6 +1,6 @@
 package com.ifmo.hatchery.controller;
 
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.model.system.Biomaterial;
 import com.ifmo.hatchery.model.system.Stage;
 import com.ifmo.hatchery.model.system.Task;
@@ -28,7 +28,7 @@ public class RestartServiceController {
     private TaskRepository<Task, Long> taskRepository;
 
     @Autowired
-    private UserRepository<User, Long> userRepository;
+    private UserRepository<UserX, Long> userRepository;
 
     @Autowired
     private BiomaterialRepository<Biomaterial, Long> biomaterialRepository;
