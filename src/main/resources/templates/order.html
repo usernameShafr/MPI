@@ -26,7 +26,7 @@
                         <label>Skills</label>
                         <th:block th:each="skill : ${availableSkills}">
                             <div class="checkbox">
-                                <input type="checkbox" name="skills" th:value="${skill.id}"/>
+                                <input type="checkbox" name="skills" th:value="${skill.id}" th:auto-id="${skill.name}"/>
                                 <label th:text="${skill.name}"></label>
                             </div>
                         </th:block>
