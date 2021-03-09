@@ -10,13 +10,46 @@
 <body>
 <h1>Welcome!</h1>
 
-<p>Click <a th:href="@{/order}">order</a> </p>
-<p><a th:href="@{/dashboard}">dashboard</a></p>
-<p><a th:href="@{/donor}">donor</a></p>
+<!--ROLE_DONOR-->
+<div th:if="${role=='ROLE_DONOR'}">
+    <form th:action="@{/donor}" method="get">
+        <input type="submit" value="Give a BIO"/>
+    </form>
+</div>
+
+<!--ROLE_DISPATCHER-->
+<div th:if="${role=='ROLE_DISPATCHER'}">
+    <form th:action="@{/dashboard}" method="get">
+        <input type="submit" value="Dashboard"/>
+    </form>
+</div>
+<!--ROLE_CUSTOMER-->
+<div th:if="${role=='ROLE_CUSTOMER'}">
+    <form th:action="@{/order}" method="get">
+        <input type="submit" value="Order"/>
+    </form>
+</div>
+
+<div th:if="${role=='ROLE_ADMIN'}">
+    <form th:action="@{/order}" method="get">
+        <input type="submit" value="Order"/>
+    </form>
+    <form th:action="@{/dashboard}" method="get">
+        <input type="submit" value="Dashboard"/>
+    </form>
+    <form th:action="@{/donor}" method="get">
+        <input type="submit" value="Give a BIO"/>
+    </form>
+</div>
 
 
+<p>-------------------</p>
 
-<h1>test</h1>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+
+<!--<h1>test</h1>
 <table class="table table-hover">
     <thead>
     <tr>
@@ -36,7 +69,7 @@
         <td><span th:text="${order.lockStatus}"></span></td>
     </tr>
     </tbody>
-</table>
+</table>-->
 
 
 </body>

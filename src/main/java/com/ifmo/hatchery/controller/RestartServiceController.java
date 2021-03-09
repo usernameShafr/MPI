@@ -86,12 +86,12 @@ public class RestartServiceController {
     public String restartService(Model model, @RequestParam() Stage stage2) {
         System.err.println(stage2.toString().toLowerCase());
 
-        List<Task> statusTasks = taskRepository.findAllByLockStatus(TaskLockStatus.FAILED);
+        List<Task> statusTasks = taskRepository.findAllByStageAndLock(stage2,TaskLockStatus.FAILED);
         for(Task task : statusTasks) {
             task.setLockStatus(null);
             taskRepository.save(task);
         }
-        statusTasks = taskRepository.findAllByLockStatus(TaskLockStatus.LOCKED);
+        statusTasks = taskRepository.findAllByStageAndLock(stage2,TaskLockStatus.LOCKED);
         for(Task task : statusTasks) {
             task.setLockStatus(null);
             taskRepository.save(task);

@@ -22,6 +22,7 @@ public class DataInit implements ApplicationRunner {
     public static final String CUSTOMER_DEFAULT_USERNAME = "username";
     public static final String DISPATCHER_DEFAULT_USERNAME = "usernameDispatcher";
     public static final String DONOR_DEFAULT_USERNAME = "usernameDonor";
+    public static final String ADMIN_DEFAULT_USERNAME = "admin";
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -87,6 +88,21 @@ public class DataInit implements ApplicationRunner {
             user.setLastName("lastnameDonor");
             user.setPassword(bCryptPasswordEncoder.encode(DEFAULT_PASSWORD));
             user.setBiomaterialType(BiomaterialType.MALE);
+            user.setRoles(Collections.singleton(role));
+            userRepository.save(user);
+
+
+            role = new Role();
+            role.setName("ROLE_ADMIN");
+            roleRepository.save(role);
+
+            user = new User();
+            user.setEmail("e-admin@gmail.com");
+            user.setUsername(ADMIN_DEFAULT_USERNAME);
+            user.setLastName("admin");
+            //user.setPassword("password");
+            //user.setBiomaterialType(BiomaterialType.MALE);
+            user.setPassword(bCryptPasswordEncoder.encode(DEFAULT_PASSWORD));
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
         }

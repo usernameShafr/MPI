@@ -14,6 +14,7 @@ public interface TaskRepository<T extends Task, ID extends Long> extends JpaRepo
     List<Task> findAllByLockStatus(TaskLockStatus status);
     @Query("SELECT t FROM Task t WHERE t.stage = :stage and t.lockStatus IS NULL  ")
     List<Task> findAllByStageWithoutLock(@Param("stage") Stage stage);
-
+    @Query("SELECT t FROM Task t WHERE t.stage = :stage and t.lockStatus = :lockStatus ")
+    List<Task> findAllByStageAndLock(@Param("stage") Stage stage,@Param("lockStatus") TaskLockStatus status);
 
 }
