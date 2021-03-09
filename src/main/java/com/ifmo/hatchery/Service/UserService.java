@@ -27,8 +27,8 @@ public class UserService implements UserDetailsService {
     private UserRepository<User, Long> userRepository;
     @Autowired
     private RoleRepository <Role, Long> roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    //@Autowired
+    //private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Override
