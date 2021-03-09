@@ -9,7 +9,13 @@
 </head>
 <body>
 <div class="container">
-    <p><a th:href="@{/dashboard}">Вернуться в Dashboard</a></p>
+    <fieldset disabled>
+        <button type="button" class="btn btn-raised btn-success">
+            <a th:href="@{/home}">personal account</a></button>
+        <button type="button" class="btn btn-raised btn-success">
+            <a th:href="@{/dashboard}">dashboard</a></button>
+        <button type="button" class="btn btn-raised btn-danger"><a th:href="@{/logout}">Sign Out</a></button>
+    </fieldset>
     <div class="row">
         <div class="col"></div>
         <div class="col-8">

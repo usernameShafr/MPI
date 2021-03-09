@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Hatchery: Order</title>
@@ -9,7 +9,11 @@
 </head>
 <body>
     <div class="container">
-        <p> <a th:href="@{/home}">Back</a> </p>
+        <fieldset disabled>
+            <button type="button" class="btn btn-raised btn-success">
+                <a th:href="@{/home}">personal account</a></button>
+            <button type="button" class="btn btn-raised btn-danger"><a th:href="@{/logout}">Sign Out</a></button>
+        </fieldset>
         <div class="row">
             <div class="col"></div>
             <div class="col-4">

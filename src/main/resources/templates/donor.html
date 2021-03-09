@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>BIO LK</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
 </head>
 <body>
-<h1>Welcome!</h1>
-
-<h1 th:inline="text">Give a biaomaterial  [[${#httpServletRequest.remoteUser}]]!!!!!!</h1>
-
-
-<p> <a th:href="@{/home}">Back</a> </p>
-
+<div class="container">
+    <fieldset disabled>
+        <button type="button" class="btn btn-raised btn-success">
+            <a th:href="@{/home}">personal account</a></button>
+        <button type="button" class="btn btn-raised btn-danger"><a th:href="@{/logout}">Sign Out</a></button>
+    </fieldset>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-8">
+            <h1 th:inline="text">Give a biaomaterial  [[${#httpServletRequest.remoteUser}]]!!!!!!</h1>
 <form th:action="@{/donor/giveBio}" method="POST">
     <div class="form-group">
         <div th:if="${gender_attribute==T(com.ifmo.hatchery.model.system.BiomaterialType).MALE}">
-            Give a male biomaterial.
+            <p>Give a male biomaterial.</p>
             <input type="hidden" name="biomaterial" th:value="${gender_attribute}"/>
         </div>
         <div th:if="${gender_attribute==T(com.ifmo.hatchery.model.system.BiomaterialType).FEMALE}">
-            Give a female biomaterial.
+            <p>Give a female biomaterial.</p>
             <input type="hidden" name="biomaterial" th:value="${gender_attribute}"/>
         </div>
         <div th:if="${gender_attribute==null}">
-        <label for="biomaterial">Biomaterial</label>
+        <label for="biomaterial">Type a Biomaterial:</label>
         <select class="form-control" id="biomaterial" name="biomaterial">
 
             <option th:each="bioOpt : ${T(com.ifmo.hatchery.model.system.BiomaterialType).values()}"
@@ -36,5 +41,9 @@
 
     <input type="submit" value="Give" />
 </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
 </body>
 </html>

@@ -8,46 +8,22 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 </head>
 <body>
-<h1>Welcome!</h1>
-
-<!--ROLE_DONOR-->
-<div th:if="${role=='ROLE_DONOR'}">
-    <form th:action="@{/donor}" method="get">
-        <input type="submit" value="Give a BIO"/>
-    </form>
-</div>
-
-<!--ROLE_DISPATCHER-->
-<div th:if="${role=='ROLE_DISPATCHER'}">
-    <form th:action="@{/dashboard}" method="get">
-        <input type="submit" value="Dashboard"/>
-    </form>
-</div>
-<!--ROLE_CUSTOMER-->
-<div th:if="${role=='ROLE_CUSTOMER'}">
-    <form th:action="@{/order}" method="get">
-        <input type="submit" value="Order"/>
-    </form>
-</div>
-
-<div th:if="${role=='ROLE_ADMIN'}">
-    <form th:action="@{/order}" method="get">
-        <input type="submit" value="Order"/>
-    </form>
-    <form th:action="@{/dashboard}" method="get">
-        <input type="submit" value="Dashboard"/>
-    </form>
-    <form th:action="@{/donor}" method="get">
-        <input type="submit" value="Give a BIO"/>
-    </form>
-</div>
+<h1>Personal account [[${#httpServletRequest.remoteUser}]]</h1>
+<fieldset disabled>
+    <!--ROLE_DONOR-->
+    <button th:if="${role=='ROLE_DONOR' or role == 'ROLE_ADMIN'}" type="button" class="btn btn-raised btn-success">
+        <a th:href="@{/donor}">Give BIO</a></button>
+    <!--ROLE_DISPATCHER-->
+    <button th:if="${role=='ROLE_DISPATCHER' or role == 'ROLE_ADMIN'}" type="button" class="btn btn-raised btn-success">
+        <a th:href="@{/dashboard}">Dashboard</a></button>
 
 
-<p>-------------------</p>
+    <button th:if="${role=='ROLE_CUSTOMER' or role == 'ROLE_ADMIN'}" type="button" class="btn btn-raised btn-success">
+        <a th:href="@{/order}">Order</a></button>
+    <button type="button" class="btn btn-raised btn-danger"><a th:href="@{/logout}">Sign Out</a></button>
+</fieldset>
 
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
+
 
 <!--<h1>test</h1>
 <table class="table table-hover">
