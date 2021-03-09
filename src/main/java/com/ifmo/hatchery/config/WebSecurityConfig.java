@@ -25,11 +25,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()
                 .authorizeRequests()
 
-                    .antMatchers("/dashboard/**","/task/**","/restartService/**","/", "/home").hasAnyRole("DISPATCHER","ADMIN")
-                    .antMatchers("/order/**","/", "/home").hasAnyRole( "CUSTOMER","ADMIN")
+                    .antMatchers("/dashboard/**","/task/**","/restartService/**").hasAnyRole("DISPATCHER","ADMIN")
+                    .antMatchers("/order/**").hasAnyRole( "CUSTOMER","ADMIN")
 
 
-                    .antMatchers("/donor/**","/", "/home").hasAnyRole("DONOR","ADMIN")
+                    .antMatchers("/donor/**").hasAnyRole("DONOR","ADMIN")
                     //.antMatchers("/", "/home").permitAll()
                     .anyRequest().authenticated()
 
