@@ -16,6 +16,11 @@ import java.util.Collections;
 
 @Component
 public class DataInit implements ApplicationRunner {
+    public static final String DEFAULT_PASSWORD = "password";
+    public static final String CUSTOMER_DEFAULT_USERNAME = "username";
+    public static final String DISPATCHER_DEFAULT_USERNAME = "usernameDispatcher";
+    public static final String DONOR_DEFAULT_USERNAME = "usernameDonor";
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -32,6 +37,7 @@ public class DataInit implements ApplicationRunner {
 
         if (count == 0) {
             Skill skill = new Skill();
+            skill.setId(1L);
             skill.setName("Stamina");
             skillRepository.save(skill);
 
@@ -51,7 +57,7 @@ public class DataInit implements ApplicationRunner {
             user.setEmail("email@gmail.com");
             user.setUsername("username");
             user.setLastName("lastname");
-            user.setPassword(bCryptPasswordEncoder.encode("password"));
+            user.setPassword(bCryptPasswordEncoder.encode(DEFAULT_PASSWORD));
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
 
@@ -63,8 +69,7 @@ public class DataInit implements ApplicationRunner {
             user.setEmail("email1@gmail.com");
             user.setUsername("usernameDispatcher");
             user.setLastName("lastname1");
-            //user.setPassword("password");
-            user.setPassword(bCryptPasswordEncoder.encode("password"));
+            user.setPassword(bCryptPasswordEncoder.encode(DEFAULT_PASSWORD));
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
 
@@ -76,7 +81,7 @@ public class DataInit implements ApplicationRunner {
             user.setEmail("email11@gmail.com");
             user.setUsername("usernameDonor");
             user.setLastName("lastnameDonor");
-            user.setPassword(bCryptPasswordEncoder.encode("password"));
+            user.setPassword(bCryptPasswordEncoder.encode(DEFAULT_PASSWORD));
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
         }
