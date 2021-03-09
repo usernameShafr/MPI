@@ -69,7 +69,7 @@ public class DataInit implements ApplicationRunner {
 
             user = new User();
             user.setEmail("email1@gmail.com");
-            user.setUsername("usernameDispatcher");
+            user.setUsername(DISPATCHER_DEFAULT_USERNAME);
             user.setLastName("lastname1");
             //user.setPassword("password");
             user.setBiomaterialType(BiomaterialType.MALE);
@@ -83,7 +83,7 @@ public class DataInit implements ApplicationRunner {
 
             user = new User();
             user.setEmail("email11@gmail.com");
-            user.setUsername("usernameDonor");
+            user.setUsername(DONOR_DEFAULT_USERNAME);
             user.setLastName("lastnameDonor");
             user.setPassword(bCryptPasswordEncoder.encode(DEFAULT_PASSWORD));
             user.setBiomaterialType(BiomaterialType.MALE);
