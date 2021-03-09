@@ -2,6 +2,9 @@ package com.ifmo.hatchery.model.auth;
 
 import com.ifmo.hatchery.model.auth.Role;
 
+import com.ifmo.hatchery.model.system.BiomaterialType;
+import com.ifmo.hatchery.model.system.Gender;
+import com.ifmo.hatchery.model.system.Stage;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +25,8 @@ public class User implements UserDetails {
     private String lastName;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
+    private BiomaterialType biomaterialType;
     private boolean enabled;
     private boolean tokenExpired;
     @Transient
@@ -76,6 +81,14 @@ public class User implements UserDetails {
 
     public Long getId() {
         return id;
+    }
+
+    public BiomaterialType getBiomaterialType() {
+        return biomaterialType;
+    }
+
+    public void setBiomaterialType(BiomaterialType biomaterialType) {
+        this.biomaterialType = biomaterialType;
     }
 
     public void setId(Long id) {

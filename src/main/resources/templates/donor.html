@@ -6,13 +6,28 @@
 <body>
 <h1>Welcome!</h1>
 <h1 th:inline="text">Donor LK  [[${#httpServletRequest.remoteUser}]]!</h1>
+
+<!--<div th:if="${gender_attribute==T(com.ifmo.hatchery.model.system.Gender).FEMALE}">
+    Баба!!
+</div>-->
 <form th:action="@{donor/giveBio}" method="POST">
     <div class="form-group">
+        <div th:if="${gender_attribute==T(com.ifmo.hatchery.model.system.BiomaterialType).MALE}">
+            Сдать мужской биоматериал!!
+            <input type="hidden" name="biomaterial" th:value="${gender_attribute}"/>
+        </div>
+        <div th:if="${gender_attribute==T(com.ifmo.hatchery.model.system.BiomaterialType).FEMALE}">
+            Сдать женский биоматериал!!
+            <input type="hidden" name="biomaterial" th:value="${gender_attribute}"/>
+        </div>
+        <div th:if="${gender_attribute==null}">
         <label for="biomaterial">Biomaterial</label>
         <select class="form-control" id="biomaterial" name="biomaterial">
+
             <option th:each="bioOPt : ${T(com.ifmo.hatchery.model.system.BiomaterialType).values()}"
                     th:value="${bioOPt}" th:text="${bioOPt}"></option>
         </select>
+        </div>
     </div>
 
     <input type="submit" value="Give" />

@@ -2,6 +2,8 @@ package com.ifmo.hatchery.init;
 
 import com.ifmo.hatchery.model.auth.Role;
 import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.system.BiomaterialType;
+import com.ifmo.hatchery.model.system.Gender;
 import com.ifmo.hatchery.model.system.Skill;
 import com.ifmo.hatchery.repository.RoleRepository;
 import com.ifmo.hatchery.repository.SkillRepository;
@@ -64,6 +66,7 @@ public class DataInit implements ApplicationRunner {
             user.setUsername("usernameDispatcher");
             user.setLastName("lastname1");
             //user.setPassword("password");
+            user.setBiomaterialType(BiomaterialType.MALE);
             user.setPassword(bCryptPasswordEncoder.encode("password"));
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
@@ -76,6 +79,7 @@ public class DataInit implements ApplicationRunner {
             user.setEmail("email11@gmail.com");
             user.setUsername("usernameDonor");
             user.setLastName("lastnameDonor");
+            user.setBiomaterialType(BiomaterialType.MALE);
             user.setPassword(bCryptPasswordEncoder.encode("password"));
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
