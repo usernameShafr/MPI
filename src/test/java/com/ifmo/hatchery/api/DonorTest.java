@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.net.HttpURLConnection;
 import java.util.Map;
 
+import static com.ifmo.hatchery.CommonConfiguration.BASE_URL;
 import static com.ifmo.hatchery.init.DataInit.DEFAULT_PASSWORD;
 import static com.ifmo.hatchery.init.DataInit.DONOR_DEFAULT_USERNAME;
 import static io.restassured.RestAssured.baseURI;
@@ -15,19 +16,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DonorTest {
-    private static final String API_URL = "http://localhost:8080";
     private static Map<String, String> COOKIES;
 
     @BeforeAll
     public static void setUp() {
         COOKIES = given()
-                .baseUri(API_URL)
+                .baseUri(BASE_URL)
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                 .formParam("username", DONOR_DEFAULT_USERNAME)
                 .formParam("password", DEFAULT_PASSWORD)
                 .expect()
                 .statusCode(HttpURLConnection.HTTP_MOVED_TEMP)
-                .header("Location", String.format("%s/home", API_URL))
+                .header("Location", String.format("%s/home", BASE_URL))
                 .when()
                 .post("/login")
                 .cookies();
@@ -42,7 +42,7 @@ public class DonorTest {
                 .cookies(COOKIES)
                 .expect()
                 .statusCode(HttpURLConnection.HTTP_MOVED_TEMP)
-                .header("Location", String.format("%s/donor", API_URL))
+                .header("Location", String.format("%s/donor", BASE_URL))
                 .when()
                 .post("/donor/giveBio");
     }

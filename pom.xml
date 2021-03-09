@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<io-rest-assured.version>3.1.1</io-rest-assured.version>
+		<selenium.version>3.141.59</selenium.version>
 	</properties>
 
 	<dependencies>
@@ -99,6 +100,18 @@
 			<groupId>io.rest-assured</groupId>
 			<artifactId>xml-path</artifactId>
 			<version>${io-rest-assured.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-chrome-driver</artifactId>
+			<version>${selenium.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
