@@ -51,7 +51,7 @@ public class TaskController {
     @RequestMapping(value = {"/fertilization" }, method = RequestMethod.GET)
     public String getFertilizationTask(Model model, Authentication authentication) {
         String answer = commonGetProcessing(model, authentication, Stage.FERTILIZATION);
-        if(answer.equals("/task")) {
+        if(answer.equals("task")) {
             model.addAttribute("maleBioMaterial", biomaterialRepository.findByTypeAndBioState(BiomaterialType.MALE, BioState.NOT_USE));
             model.addAttribute("femaleBioMaterial", biomaterialRepository.findByTypeAndBioState(BiomaterialType.FEMALE, BioState.NOT_USE));
         }
@@ -71,7 +71,7 @@ public class TaskController {
     @RequestMapping(value = {"/add_skills" }, method = RequestMethod.GET)
     public String getAddSkillsTask(Model model, Authentication authentication) {
         String answer =  commonGetProcessing(model, authentication, Stage.ADD_SKILLS);
-        if(answer.equals("/task")) {
+        if(answer.equals("task")) {
             model.addAttribute("availableSkills", skillRepository.findAll());
         }
         return answer;
