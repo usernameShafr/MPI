@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 @RequestMapping("home")
 public class HomeController {
     @Autowired
-    private UserRepository<UserX, Long> userRepository;
-    @Autowired
     private com.ifmo.hatchery.service.UserService userService;
 
     @RequestMapping(value = { "", "/", "/index" }, method = RequestMethod.GET)
