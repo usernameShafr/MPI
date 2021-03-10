@@ -1,9 +1,8 @@
 package com.ifmo.hatchery.init;
 
 import com.ifmo.hatchery.model.auth.Role;
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.model.system.BiomaterialType;
-import com.ifmo.hatchery.model.system.Gender;
 import com.ifmo.hatchery.model.system.Skill;
 import com.ifmo.hatchery.repository.RoleRepository;
 import com.ifmo.hatchery.repository.SkillRepository;
@@ -30,7 +29,7 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private SkillRepository<Skill, Long> skillRepository;
     @Autowired
-    private UserRepository<User, Long> userRepository;
+    private UserRepository<UserX, Long> userRepository;
     @Autowired
     private RoleRepository<Role, Long> roleRepository;
 
@@ -56,7 +55,7 @@ public class DataInit implements ApplicationRunner {
             role.setName("ROLE_CUSTOMER");
             roleRepository.save(role);
 
-            User user = new User();
+            UserX user = new UserX();
             user.setEmail("email@gmail.com");
             user.setUsername("username");
             user.setLastName("lastname");
@@ -68,7 +67,7 @@ public class DataInit implements ApplicationRunner {
             role.setName("ROLE_DISPATCHER");
             roleRepository.save(role);
 
-            user = new User();
+            user = new UserX();
             user.setEmail("email1@gmail.com");
             user.setUsername(DISPATCHER_DEFAULT_USERNAME);
             user.setLastName("lastname1");
@@ -82,7 +81,7 @@ public class DataInit implements ApplicationRunner {
             role.setName("ROLE_DONOR");
             roleRepository.save(role);
 
-            user = new User();
+            user = new UserX();
             user.setEmail("email11@gmail.com");
             user.setUsername(DONOR_DEFAULT_USERNAME);
             user.setLastName("lastnameDonor");
@@ -96,7 +95,7 @@ public class DataInit implements ApplicationRunner {
             role.setName("ROLE_ADMIN");
             roleRepository.save(role);
 
-            user = new User();
+            user = new UserX();
             user.setEmail("e-admin@gmail.com");
             user.setUsername(ADMIN_DEFAULT_USERNAME);
             user.setLastName("admin");

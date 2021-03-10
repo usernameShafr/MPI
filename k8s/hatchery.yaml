@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hatchery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hatchery
+  template:
+    metadata:
+      labels:
+        app: hatchery
+    spec:
+      containers:
+        - image: gcr.io/hatchery-app-mpi/hatchery-app:0.0.1-SNAPSHOT
+          imagePullPolicy: Always
+          name: hatchery
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          resources:
+            limits:
+              cpu: 1
+              memory: 1Gi
+            requests:
+              cpu: 1
+              memory: 512Mi
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hatchery
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  selector:
+    app: hatchery
+---

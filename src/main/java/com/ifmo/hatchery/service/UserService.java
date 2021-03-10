@@ -1,6 +1,6 @@
 package com.ifmo.hatchery.service;
 
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.model.auth.Role;
 import com.ifmo.hatchery.repository.RoleRepository;
 import com.ifmo.hatchery.repository.UserRepository;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -24,7 +23,7 @@ public class UserService implements UserDetailsService {
     @PersistenceContext
     private EntityManager em;
     @Autowired
-    private UserRepository<User, Long> userRepository;
+    private UserRepository<UserX, Long> userRepository;
     @Autowired
     private RoleRepository <Role, Long> roleRepository;
     //@Autowired
@@ -33,7 +32,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        UserX user = userRepository.findByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
@@ -41,21 +40,21 @@ public class UserService implements UserDetailsService {
 
         return user;
     }
-    public User findByUsername(String username ){
-        User user = userRepository.findByUsername(username);
+    public UserX findByUsername(String username ){
+        UserX user = userRepository.findByUsername(username);
         return user;
     }
-    public User findUserById(Long userId) {
-        Optional<User> userFromDb = userRepository.findById(userId);
-        return userFromDb.orElse(new User());
+    public UserX findUserById(Long userId) {
+        Optional<UserX> userFromDb = userRepository.findById(userId);
+        return userFromDb.orElse(new UserX());
     }
 
-    public List<User> allUsers() {
+    public List<UserX> allUsers() {
         return userRepository.findAll();
     }
 
-    public boolean saveUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
+    public boolean saveUser(UserX user) {
+        UserX userFromDB = userRepository.findByUsername(user.getUsername());
 
         if (userFromDB != null) {
             return false;
@@ -68,8 +67,8 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public List<User> usergtList(Long idMin) {
-        return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
+    public List<UserX> usergtList(Long idMin) {
+        return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", UserX.class)
                 .setParameter("paramId", idMin).getResultList();
     }
 }

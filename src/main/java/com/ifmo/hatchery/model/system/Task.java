@@ -1,7 +1,7 @@
 package com.ifmo.hatchery.model.system;
 
 
-import com.ifmo.hatchery.model.auth.User;
+import com.ifmo.hatchery.model.auth.UserX;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -58,7 +58,7 @@ public class Task {
 
     @OneToOne(cascade = CascadeType.DETACH, orphanRemoval = true)
     @JoinColumn(name = "handler_id")
-    private User lockUser;
+    private UserX lockUser;
 
     public Long getId() {
         return id;
@@ -132,11 +132,11 @@ public class Task {
         this.lockStatus = lockStatus;
     }
 
-    public User getLockUser() {
+    public UserX getLockUser() {
         return lockUser;
     }
 
-    public void setLockUser(User lockUser) {
+    public void setLockUser(UserX lockUser) {
         this.lockUser = lockUser;
     }
 }
