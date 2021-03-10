@@ -26,7 +26,7 @@ public class DashboardController {
         if(infoMessage != null){
             model.addAttribute("infoMessage", infoMessage);
         }
-        return "/dashboard";
+        return "dashboard";
     }
 
     public static boolean hasFailures(Object status){

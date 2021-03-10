@@ -36,7 +36,7 @@ public class OrderController {
         model.addAttribute("myOrders", orders);
 
         model.addAttribute("availableSkills", skillService.findAll());
-        return "/order";
+        return "order";
     }
 
     @RequestMapping(value = { "/createOrder" }, method = RequestMethod.POST)

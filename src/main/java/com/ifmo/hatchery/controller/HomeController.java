@@ -29,7 +29,7 @@ public class HomeController {
         System.err.println(a.get(0));
         System.err.println("HOME_PAGE");
         model.addAttribute("role", a.get(0));
-        return "/home";
+        return "home";
     }
 
 }

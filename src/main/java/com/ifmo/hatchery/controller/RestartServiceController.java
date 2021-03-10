@@ -80,8 +80,9 @@ public class RestartServiceController {
         model.addAttribute("TABLE_MAP", paramsMap);
         model.addAttribute("stage1", stage);
 
-        return "/restartService";
+        return "restartService";
     }
+
     @PostMapping("/restart" )
     public String restartService(Model model, @RequestParam() Stage stage2) {
         System.err.println(stage2.toString().toLowerCase());

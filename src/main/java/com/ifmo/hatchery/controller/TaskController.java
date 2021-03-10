@@ -88,7 +88,7 @@ public class TaskController {
             return REDIRECT_DASHBOARD;
         }
         model.addAttribute("taskForProcess", task.get());
-        return "/task";
+        return "task";
     }
 
     @RequestMapping(value = { "/processTask" }, method = RequestMethod.POST)
