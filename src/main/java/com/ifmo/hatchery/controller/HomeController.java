@@ -2,7 +2,6 @@ package com.ifmo.hatchery.controller;
 
 import com.ifmo.hatchery.model.auth.Role;
 import com.ifmo.hatchery.model.auth.UserX;
-import com.ifmo.hatchery.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

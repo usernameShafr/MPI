@@ -7,7 +7,6 @@ import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.model.system.Caste;
 import com.ifmo.hatchery.model.system.OrderX;
 import com.ifmo.hatchery.model.system.Skill;
-import com.ifmo.hatchery.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
