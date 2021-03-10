@@ -1,0 +1,310 @@
+@startuml
+
+title __DEMO's Class Diagram__\n
+
+  namespace com.ifmo.hatchery {
+    class com.ifmo.hatchery.HatcheryApplication {
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace config {
+      class com.ifmo.hatchery.config.MvcConfig {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace config {
+      class com.ifmo.hatchery.config.WebSecurityConfig {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.DashboardController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.DispatcherController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.DonorController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.HomeController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.IndexController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.LoginController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.OrderController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.PersonListController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.RestartServiceController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace controller {
+      class com.ifmo.hatchery.controller.TaskController {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace init {
+      class com.ifmo.hatchery.init.DataInit {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.auth {
+      class com.ifmo.hatchery.model.auth.Privilege {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.auth {
+      class com.ifmo.hatchery.model.auth.Role {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.auth {
+      class com.ifmo.hatchery.model.auth.User {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      enum BioState {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      class com.ifmo.hatchery.model.system.Biomaterial {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      enum BiomaterialType {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      enum Caste {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      enum Gender {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      class com.ifmo.hatchery.model.system.OrderX {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      class com.ifmo.hatchery.model.system.Skill {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      enum Stage {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      class com.ifmo.hatchery.model.system.Task {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace model.system {
+      enum TaskLockStatus {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace repository {
+      interface com.ifmo.hatchery.repository.BiomaterialRepository {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace repository {
+      interface com.ifmo.hatchery.repository.OrderXRepository {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace repository {
+      interface com.ifmo.hatchery.repository.RoleRepository {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace repository {
+      interface com.ifmo.hatchery.repository.SkillRepository {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace repository {
+      interface com.ifmo.hatchery.repository.TaskRepository {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace repository {
+      interface com.ifmo.hatchery.repository.UserRepository {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace service {
+      class com.ifmo.hatchery.service.UserService {
+      }
+    }
+  }
+  
+
+  com.ifmo.hatchery.config.MvcConfig .up.|> org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+  com.ifmo.hatchery.config.WebSecurityConfig -up-|> org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+  com.ifmo.hatchery.config.WebSecurityConfig o-- com.ifmo.hatchery.service.UserService : userService
+  com.ifmo.hatchery.controller.DonorController o-- com.ifmo.hatchery.service.UserService : userService
+  com.ifmo.hatchery.controller.HomeController o-- com.ifmo.hatchery.service.UserService : userService
+  com.ifmo.hatchery.controller.IndexController o-- com.ifmo.hatchery.service.UserService : userService
+  com.ifmo.hatchery.controller.OrderController o-- com.ifmo.hatchery.service.UserService : userService
+  com.ifmo.hatchery.controller.PersonListController o-- com.ifmo.hatchery.repository.UserRepository : userRepository
+  com.ifmo.hatchery.init.DataInit .up.|> org.springframework.boot.ApplicationRunner
+  com.ifmo.hatchery.model.auth.Role .up.|> org.springframework.security.core.GrantedAuthority
+  com.ifmo.hatchery.model.auth.User .up.|> org.springframework.security.core.userdetails.UserDetails
+  com.ifmo.hatchery.model.auth.User o-- com.ifmo.hatchery.model.system.BiomaterialType : biomaterialType
+  com.ifmo.hatchery.model.system.Biomaterial o-- com.ifmo.hatchery.model.system.BioState : bioState
+  com.ifmo.hatchery.model.system.Biomaterial o-- com.ifmo.hatchery.model.auth.User : donor
+  com.ifmo.hatchery.model.system.Biomaterial o-- com.ifmo.hatchery.model.system.BiomaterialType : type
+  com.ifmo.hatchery.model.system.OrderX o-- com.ifmo.hatchery.model.system.Caste : caste
+  com.ifmo.hatchery.model.system.OrderX o-- com.ifmo.hatchery.model.auth.User : customer
+  com.ifmo.hatchery.model.system.OrderX o-- com.ifmo.hatchery.model.system.Task : task
+  com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.Biomaterial : biomaterialFemale
+  com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.Biomaterial : biomaterialMale
+  com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.Caste : caste
+  com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.TaskLockStatus : lockStatus
+  com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.auth.User : lockUser
+  com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.OrderX : order
+  com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.Stage : stage
+  com.ifmo.hatchery.service.UserService .up.|> org.springframework.security.core.userdetails.UserDetailsService
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
