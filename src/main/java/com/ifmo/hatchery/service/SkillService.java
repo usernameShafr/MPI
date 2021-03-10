@@ -18,8 +18,8 @@ public class SkillService {
         return skillRepository.findAll();
     }
 
-    public List<Skill> findAllById(Long skillIDs ){
-        return skillRepository.findAllById(Collections.singleton(skillIDs));
+    public List<Skill> findAllById(List<Long> skillIDs ){
+        return skillRepository.findAllById(skillIDs);
     }
 
 }

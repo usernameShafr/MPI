@@ -1,20 +1,16 @@
 package com.ifmo.hatchery.controller;
 
+import com.ifmo.hatchery.service.OrderService;
+import com.ifmo.hatchery.service.SkillService;
 import com.ifmo.hatchery.service.UserService;
 import com.ifmo.hatchery.model.auth.UserX;
 import com.ifmo.hatchery.model.system.Caste;
 import com.ifmo.hatchery.model.system.OrderX;
 import com.ifmo.hatchery.model.system.Skill;
-import com.ifmo.hatchery.model.system.Stage;
-import com.ifmo.hatchery.model.system.Task;
-import com.ifmo.hatchery.repository.OrderXRepository;
 import com.ifmo.hatchery.repository.SkillRepository;
-import com.ifmo.hatchery.repository.TaskRepository;
-import com.ifmo.hatchery.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,33 +21,22 @@ import java.util.List;
 @Controller
 @RequestMapping("order")
 public class OrderController {
+    @Autowired
+    private SkillService skillService;
 
     @Autowired
-    private SkillRepository<Skill, Long> skillRepository;
+    private OrderService orderService;
 
-    @Autowired
-    private OrderXRepository<OrderX, Long> orderRepository;
-
-    @Autowired
-    private TaskRepository<Task, Long> taskRepository;
-
-    @Autowired
-    private UserRepository<UserX, Long> userRepository;
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = { "", "/", "/index" }, method = RequestMethod.GET)
     public String index(Model model, Authentication authentication) {
         UserX customer = userService.findByUsername(authentication.getName());
-        List<OrderX> orders;
-        if (customer != null) {
-            orders = orderRepository.findByCustomer(customer);
-        } else {
-            orders = orderRepository.findAll();
-        }
+        List<OrderX> orders = orderService.findByCustomer(customer);
         model.addAttribute("myOrders", orders);
 
-        model.addAttribute("availableSkills", skillRepository.findAll());
+        model.addAttribute("availableSkills", skillService.findAll());
         return "/order";
     }
 
@@ -69,27 +54,10 @@ public class OrderController {
             model.addAttribute("errorMessage", "Skills aren't set");
             return "order";
         }
-        OrderX order = new OrderX();
-        order.setCaste(caste);
-        List<Skill> skillsList = skillRepository.findAllById(skillIDs);
-        order.setSkills(skillsList);
-
         UserX customer = userService.findByUsername(authentication.getName());
-        order.setCustomer(customer);
+        List<Skill> skillsList = skillService.findAllById(skillIDs);
 
-        order = createTaskAndOrder(order);
-       // System.err.println(order);
+        orderService.createOrder(caste, skillsList, customer);
         return "redirect:/order";
-    }
-
-    @Transactional
-     OrderX createTaskAndOrder(OrderX order) {
-        order = orderRepository.save(order);
-        Task task = new Task();
-        task.setStage(Stage.FERTILIZATION);
-        task.setOrder(order);
-        task = taskRepository.save(task);
-        order.setTask(task);
-        return orderRepository.save(order);
     }
 }

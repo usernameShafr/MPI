@@ -7,6 +7,6 @@ import com.ifmo.hatchery.model.system.OrderX;
 
 import java.util.List;
 
-public interface OrderXRepository<T extends OrderX, ID extends Long> extends JpaRepository<OrderX, Long>{
+public interface OrderRepository<T extends OrderX, ID extends Long> extends JpaRepository<OrderX, Long>{
     List<OrderX> findByCustomer(UserX customer);
 }
