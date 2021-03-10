@@ -1,8 +1,8 @@
 package com.ifmo.hatchery.controller;
 
 import com.ifmo.hatchery.model.auth.UserX;
-import com.ifmo.hatchery.model.system.*;
-import com.ifmo.hatchery.repository.*;
+import com.ifmo.hatchery.model.system.BiomaterialType;
+import com.ifmo.hatchery.service.BiomaterialService;
 import com.ifmo.hatchery.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class DonorController {
 
     @Autowired
-    private BiomaterialRepository<Biomaterial, Long> biomaterialRepository;
+    private BiomaterialService biomaterialService;
 
-    @Autowired
-    private UserRepository<UserX, Long> userRepository;
     @Autowired
     private UserService userService;
 
@@ -43,15 +41,9 @@ public class DonorController {
             model.addAttribute("errorMessage", "Biomaterial isn't set");
             return "donor";
         }
-
-        Biomaterial biomaterials = new Biomaterial();
-        biomaterials.setType(biomaterial);
-        biomaterials.setBioState(BioState.NOT_USE);
         UserX donor = userService.findByUsername(authentication.getName());
-        biomaterials.setDonor(donor);
 
-        biomaterialRepository.save(biomaterials);
-        // System.err.println(order);
+        biomaterialService.createBiomaterial(donor, biomaterial);
         return "redirect:/donor";
     }
 }
