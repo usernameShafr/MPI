@@ -13,6 +13,7 @@ import com.ifmo.hatchery.repository.BiomaterialRepository;
 import com.ifmo.hatchery.repository.SkillRepository;
 import com.ifmo.hatchery.repository.TaskRepository;
 import com.ifmo.hatchery.repository.UserRepository;
+import com.ifmo.hatchery.service.UserService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -41,6 +42,9 @@ public class TaskController {
 
     @Autowired
     private UserRepository<UserX, Long> userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private BiomaterialRepository<Biomaterial, Long> biomaterialRepository;
@@ -78,7 +82,8 @@ public class TaskController {
     }
 
     private String commonGetProcessing(Model model, Authentication authentication, Stage stage) {
-        UserX user = userRepository.findByUsername(authentication.getName());
+
+        UserX user = userService.findByUsername(authentication.getName());
         Optional<Task> task = getTaskWithLock(stage, user);
         if(task.isPresent()){
             System.err.println(task.get().getLockStatus() + ": " + task.get().getStage());

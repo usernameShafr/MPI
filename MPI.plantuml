@@ -66,14 +66,6 @@ title __DEMO's Class Diagram__\n
 
   namespace com.ifmo.hatchery {
     namespace controller {
-      class com.ifmo.hatchery.controller.LoginController {
-      }
-    }
-  }
-  
-
-  namespace com.ifmo.hatchery {
-    namespace controller {
       class com.ifmo.hatchery.controller.OrderController {
       }
     }
@@ -130,7 +122,7 @@ title __DEMO's Class Diagram__\n
 
   namespace com.ifmo.hatchery {
     namespace model.auth {
-      class com.ifmo.hatchery.model.auth.User {
+      class com.ifmo.hatchery.model.auth.UserX {
       }
     }
   }
@@ -226,7 +218,7 @@ title __DEMO's Class Diagram__\n
 
   namespace com.ifmo.hatchery {
     namespace repository {
-      interface com.ifmo.hatchery.repository.OrderXRepository {
+      interface com.ifmo.hatchery.repository.OrderRepository {
       }
     }
   }
@@ -266,6 +258,54 @@ title __DEMO's Class Diagram__\n
 
   namespace com.ifmo.hatchery {
     namespace service {
+      class com.ifmo.hatchery.service.BiomaterialService {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace service {
+      class com.ifmo.hatchery.service.DashboardService {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace service {
+      class com.ifmo.hatchery.service.OrderService {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace service {
+      class com.ifmo.hatchery.service.RoleService {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace service {
+      class com.ifmo.hatchery.service.SkillService {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace service {
+      class com.ifmo.hatchery.service.TaskService {
+      }
+    }
+  }
+  
+
+  namespace com.ifmo.hatchery {
+    namespace service {
       class com.ifmo.hatchery.service.UserService {
       }
     }
@@ -275,26 +315,30 @@ title __DEMO's Class Diagram__\n
   com.ifmo.hatchery.config.MvcConfig .up.|> org.springframework.web.servlet.config.annotation.WebMvcConfigurer
   com.ifmo.hatchery.config.WebSecurityConfig -up-|> org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
   com.ifmo.hatchery.config.WebSecurityConfig o-- com.ifmo.hatchery.service.UserService : userService
+  com.ifmo.hatchery.controller.DashboardController o-- com.ifmo.hatchery.service.DashboardService : dashboardService
+  com.ifmo.hatchery.controller.DonorController o-- com.ifmo.hatchery.service.BiomaterialService : biomaterialService
   com.ifmo.hatchery.controller.DonorController o-- com.ifmo.hatchery.service.UserService : userService
   com.ifmo.hatchery.controller.HomeController o-- com.ifmo.hatchery.service.UserService : userService
-  com.ifmo.hatchery.controller.IndexController o-- com.ifmo.hatchery.service.UserService : userService
+  com.ifmo.hatchery.controller.OrderController o-- com.ifmo.hatchery.service.OrderService : orderService
+  com.ifmo.hatchery.controller.OrderController o-- com.ifmo.hatchery.service.SkillService : skillService
   com.ifmo.hatchery.controller.OrderController o-- com.ifmo.hatchery.service.UserService : userService
-  com.ifmo.hatchery.controller.PersonListController o-- com.ifmo.hatchery.repository.UserRepository : userRepository
+  com.ifmo.hatchery.controller.PersonListController o-- com.ifmo.hatchery.service.UserService : userService
+  com.ifmo.hatchery.controller.TaskController o-- com.ifmo.hatchery.service.UserService : userService
   com.ifmo.hatchery.init.DataInit .up.|> org.springframework.boot.ApplicationRunner
   com.ifmo.hatchery.model.auth.Role .up.|> org.springframework.security.core.GrantedAuthority
-  com.ifmo.hatchery.model.auth.User .up.|> org.springframework.security.core.userdetails.UserDetails
-  com.ifmo.hatchery.model.auth.User o-- com.ifmo.hatchery.model.system.BiomaterialType : biomaterialType
+  com.ifmo.hatchery.model.auth.UserX .up.|> org.springframework.security.core.userdetails.UserDetails
+  com.ifmo.hatchery.model.auth.UserX o-- com.ifmo.hatchery.model.system.BiomaterialType : biomaterialType
   com.ifmo.hatchery.model.system.Biomaterial o-- com.ifmo.hatchery.model.system.BioState : bioState
-  com.ifmo.hatchery.model.system.Biomaterial o-- com.ifmo.hatchery.model.auth.User : donor
+  com.ifmo.hatchery.model.system.Biomaterial o-- com.ifmo.hatchery.model.auth.UserX : donor
   com.ifmo.hatchery.model.system.Biomaterial o-- com.ifmo.hatchery.model.system.BiomaterialType : type
   com.ifmo.hatchery.model.system.OrderX o-- com.ifmo.hatchery.model.system.Caste : caste
-  com.ifmo.hatchery.model.system.OrderX o-- com.ifmo.hatchery.model.auth.User : customer
+  com.ifmo.hatchery.model.system.OrderX o-- com.ifmo.hatchery.model.auth.UserX : customer
   com.ifmo.hatchery.model.system.OrderX o-- com.ifmo.hatchery.model.system.Task : task
   com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.Biomaterial : biomaterialFemale
   com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.Biomaterial : biomaterialMale
   com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.Caste : caste
   com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.TaskLockStatus : lockStatus
-  com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.auth.User : lockUser
+  com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.auth.UserX : lockUser
   com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.OrderX : order
   com.ifmo.hatchery.model.system.Task o-- com.ifmo.hatchery.model.system.Stage : stage
   com.ifmo.hatchery.service.UserService .up.|> org.springframework.security.core.userdetails.UserDetailsService
