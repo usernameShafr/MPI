@@ -48,4 +48,9 @@ public class SeleniumTestLogin {
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(password);
         driver.findElement(By.xpath("//input[@type='submit']")).click();
     }
+
+    public static void logoutCommon(WebDriver driver) {
+        driver.findElement(By.xpath("//a[@href='/logout']")).click();
+
+    }
 }

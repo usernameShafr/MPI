@@ -21,6 +21,7 @@ public class DataInit implements ApplicationRunner {
     public static final String CUSTOMER_DEFAULT_USERNAME = "username";
     public static final String DISPATCHER_DEFAULT_USERNAME = "usernameDispatcher";
     public static final String DONOR_DEFAULT_USERNAME = "usernameDonor";
+    public static final String DONOR_FEMALE_USERNAME = "donorFemale";
     public static final String ADMIN_DEFAULT_USERNAME = "admin";
 
     @Autowired
@@ -87,6 +88,15 @@ public class DataInit implements ApplicationRunner {
             user.setLastName("lastnameDonor");
             user.setPassword(bCryptPasswordEncoder.encode(DEFAULT_PASSWORD));
             user.setBiomaterialType(BiomaterialType.MALE);
+            user.setRoles(Collections.singleton(role));
+            userRepository.save(user);
+
+            user = new UserX();
+            user.setEmail("email13@gmail.com");
+            user.setUsername(DONOR_FEMALE_USERNAME);
+            user.setLastName("lastnameDonor");
+            user.setPassword(bCryptPasswordEncoder.encode(DEFAULT_PASSWORD));
+            user.setBiomaterialType(BiomaterialType.FEMALE);
             user.setRoles(Collections.singleton(role));
             userRepository.save(user);
 
