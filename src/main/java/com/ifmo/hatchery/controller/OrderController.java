@@ -30,11 +30,13 @@ public class OrderController {
     private UserService userService;
 
     @RequestMapping(value = { "", "/", "/index" }, method = RequestMethod.GET)
-    public String index(Model model, Authentication authentication) {
+    public String index(Model model, Authentication authentication,@RequestParam(value = "errorMessage", required = false) String errorMessage) {
         UserX customer = userService.findByUsername(authentication.getName());
         List<OrderX> orders = orderService.findByCustomer(customer);
         model.addAttribute("myOrders", orders);
-
+        if (errorMessage != null){
+            model.addAttribute("errorMessage", errorMessage);
+        }
         model.addAttribute("availableSkills", skillService.findAll());
         return "order";
     }
@@ -43,7 +45,7 @@ public class OrderController {
     public String createOrder(Model model,
                               Authentication authentication,
                              @RequestParam("caste") Caste caste,
-                             @RequestParam("skills") List<Long> skillIDs) {
+                             @RequestParam(value = "skills", required = false) List<Long> skillIDs) {
         if(caste == null) {
             model.addAttribute("errorMessage", "Caste isn't set");
             return "order";
@@ -51,7 +53,7 @@ public class OrderController {
 
         if(skillIDs == null || skillIDs.isEmpty()) {
             model.addAttribute("errorMessage", "Skills aren't set");
-            return "order";
+            return "redirect:/order?errorMessage=Skills%20are%20not%20set";
         }
         UserX customer = userService.findByUsername(authentication.getName());
         List<Skill> skillsList = skillService.findAllById(skillIDs);
@@ -59,4 +61,6 @@ public class OrderController {
         orderService.createOrder(caste, skillsList, customer);
         return "redirect:/order";
     }
+
+
 }
